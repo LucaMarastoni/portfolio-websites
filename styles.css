@@ -14,6 +14,16 @@
   font-family: "Poppins", sans-serif;
 }
 
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(120% 120% at 18% -10%, rgba(28, 52, 106, 0.28), transparent 60%),
+    radial-gradient(140% 120% at 82% -14%, rgba(18, 34, 70, 0.24), transparent 64%),
+    linear-gradient(180deg, #02040b 0%, #010206 52%, #000104 100%);
+  background-color: #010206;
+  color-scheme: dark;
+}
+
 *,
 *::before,
 *::after {
@@ -23,10 +33,7 @@
 body {
   margin: 0;
   position: relative;
-  background:
-    radial-gradient(120% 120% at 18% -10%, rgba(28, 52, 106, 0.28), transparent 60%),
-    radial-gradient(140% 120% at 82% -14%, rgba(18, 34, 70, 0.24), transparent 64%),
-    linear-gradient(180deg, #02040b 0%, #010206 52%, #000104 100%);
+  background: transparent;
   color: var(--text);
   min-height: 100vh;
   line-height: 1.6;
@@ -35,7 +42,7 @@ body {
 .bg-layers {
   position: fixed;
   inset: 0;
-  z-index: -2;
+  z-index: -1;
   pointer-events: none;
   overflow: hidden;
   background:
@@ -1236,6 +1243,8 @@ body.modal-open {
   .metrics li {
     min-width: 100%;
     padding: 1rem 1.2rem;
+    align-items: flex-start;
+    gap: 0.35rem;
   }
 
   .hero {
@@ -1265,6 +1274,49 @@ body.modal-open {
 
   .cta-card {
     padding: 2.4rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .section {
+    padding: 5rem 1.35rem;
+  }
+
+  .hero {
+    gap: 2.9rem;
+  }
+
+  .hero-content {
+    gap: 1.35rem;
+  }
+
+  .hero-media {
+    padding: 0.4rem 0;
+  }
+
+  .hero-card {
+    max-width: 360px;
+  }
+
+  .works-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.6rem;
+  }
+
+  .card-body {
+    padding: 1.6rem;
+  }
+
+  .card-meta {
+    gap: 0.45rem;
+  }
+
+  .crm-card {
+    padding: 2.1rem;
+  }
+
+  .crm-feature-card {
+    padding: 1.85rem;
   }
 }
 
@@ -1344,6 +1396,95 @@ body.modal-open {
 
   .crm-stack {
     padding: 1.8rem;
+  }
+
+  .metrics li {
+    padding: 0.9rem 1rem;
+  }
+
+  .metric-value {
+    font-size: 1.85rem;
+  }
+
+  .metric-label {
+    max-width: none;
+  }
+
+  .works-grid {
+    gap: 1.4rem;
+    grid-template-columns: 1fr;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .card-meta {
+    gap: 0.4rem;
+  }
+
+  .hero-media {
+    padding: 0;
+  }
+
+  .hero-card {
+    border-radius: 26px;
+  }
+
+  .hero-card-caption {
+    padding: 1.6rem;
+  }
+
+  .crm-feature-card {
+    padding: 1.7rem;
+  }
+
+  .crm-feature-card ul {
+    gap: 0.35rem;
+  }
+
+  .crm-features li {
+    padding: 0.85rem 1rem;
+  }
+
+  .shape-1 {
+    top: -6%;
+    left: -34%;
+    width: clamp(200px, 58vw, 280px);
+    height: clamp(210px, 60vw, 310px);
+    --base-scale: 0.92;
+  }
+
+  .shape-2 {
+    top: 60%;
+    right: -32%;
+    width: clamp(220px, 64vw, 300px);
+    height: clamp(150px, 45vw, 220px);
+    --base-scale: 0.92;
+  }
+
+  .shape-3 {
+    bottom: -18%;
+    left: -6%;
+    width: clamp(180px, 54vw, 260px);
+    height: clamp(200px, 58vw, 300px);
+    --base-scale: 0.94;
+  }
+
+  .bg-grid {
+    inset: -32%;
+    opacity: 0.12;
+    transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scale(1.02) rotate(-3deg);
+  }
+
+  .bg-layers::before {
+    inset: -48%;
+    filter: blur(70px);
+    opacity: 0.42;
+  }
+
+  .bg-layers::after {
+    opacity: 0.15;
   }
 
   .crm-pill-list li {
