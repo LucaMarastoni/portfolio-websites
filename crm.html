@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="crm-page">
+    <div class="bg-layers" aria-hidden="true">
+      <div class="bg-shape shape-1" data-depth="42"></div>
+      <div class="bg-shape shape-2" data-depth="30"></div>
+      <div class="bg-shape shape-3" data-depth="36"></div>
+      <div class="bg-grid" data-depth="10" data-tilt="false"></div>
+    </div>
     <div class="page-wrapper">
       <header class="header">
         <nav class="nav">
@@ -265,9 +271,43 @@
             <li><a href="https://www.linkedin.com" target="_blank">LinkedIn</a></li>
             <li><a href="https://www.instagram.com" target="_blank">Instagram</a></li>
             <li><a href="https://github.com/lucamarastoni" target="_blank">GitHub</a></li>
+            <li>
+              <button class="footer-link modal-trigger" type="button" data-modal-target="#privacy-modal">
+                Privacy Policy
+              </button>
+            </li>
           </ul>
         </div>
       </footer>
+    </div>
+
+    <div class="modal-backdrop" id="privacy-modal" aria-hidden="true">
+      <div
+        class="modal-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="privacy-modal-title"
+        tabindex="-1"
+      >
+        <button class="modal-close" type="button" data-dismiss-modal aria-label="Chiudi Privacy Policy">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="modal-content">
+          <h2 id="privacy-modal-title">Privacy Policy</h2>
+          <p>
+            Questo sito è pensato come vetrina informativa: non vengono raccolti dati personali e non
+            viene effettuata nessuna attività di profilazione.
+          </p>
+          <p>
+            I cookie non vengono utilizzati, ad eccezione di quelli strettamente necessari al corretto
+            funzionamento tecnico del sito. Nessun dato viene condiviso con terze parti.
+          </p>
+          <p>
+            Per ulteriori informazioni puoi scrivere a
+            <a href="mailto:marastoni311@gmail.com">marastoni311@gmail.com</a>.
+          </p>
+        </div>
+      </div>
     </div>
 
     <script src="./scripts.js"></script>
