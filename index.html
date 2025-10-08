@@ -16,11 +16,17 @@
     <div class="page-wrapper">
       <header class="header">
         <nav class="nav">
-          <div class="brand">Luca Marastoni<span>Digital Solution</span></div>
-          <button class="menu-toggle" aria-label="Apri menù">
+          <a class="brand" href="#intro">Luca Marastoni<span>Digital Solution</span></a>
+          <button
+            class="menu-toggle"
+            type="button"
+            aria-label="Apri menù"
+            aria-expanded="false"
+            aria-controls="primary-navigation"
+          >
             <span></span><span></span><span></span>
           </button>
-          <ul class="nav-links">
+          <ul class="nav-links" id="primary-navigation">
             <li><a href="#intro">Home</a></li>
             <li><a href="#works">Progetti</a></li>
             <li><a href="crm.html">CRM</a></li>
@@ -34,32 +40,32 @@
         <section id="intro" class="hero section">
           <div class="hero-content reveal">
             <p class="eyebrow">Web & Software Designer</p>
-            <h1>
-              Trasformo idee in siti e software su misura, curando design e
-              performance end-to-end.
-            </h1>
+            <h1>Sviluppo esperienze digitali che lasciano il segno.</h1>
             <p class="lead">
-              Progetto ecosistemi digitali completi: siti web, web app e
-              strumenti gestionali pensati per far crescere freelance, startup
-              e professionisti. Ogni esperienza è costruita sul tuo workflow e
-              orientata a risultati misurabili.
+              Unisco design, sviluppo e automazioni per siti, web app e CRM che
+              fanno crescere freelance, brand e professionisti.
             </p>
+            <ul class="hero-points">
+              <li>Strategia data-driven e UX su misura</li>
+              <li>Performance ottimizzate per conversioni e SEO</li>
+              <li>Supporto continuativo dal brief al post lancio</li>
+            </ul>
             <div class="hero-actions">
               <a class="btn primary" href="#works">Scopri i miei lavori</a>
               <a class="btn outline" href="#contact">Parliamone</a>
             </div>
             <ul class="metrics">
               <li>
-                <span class="metric-value">10+</span>
-                <span class="metric-label">Siti e software lanciati</span>
+                <span class="metric-value" data-target="18" data-suffix="+">0</span>
+                <span class="metric-label">Progetti digitali lanciati</span>
               </li>
               <li>
-                <span class="metric-value">Full</span>
-                <span class="metric-label">Supporto end-to-end</span>
+                <span class="metric-value" data-target="5">0</span>
+                <span class="metric-label">Settimane medie per il go-live</span>
               </li>
               <li>
-                <span class="metric-value">100%</span>
-                <span class="metric-label">Clienti soddisfatti</span>
+                <span class="metric-value" data-target="100" data-suffix="%">0</span>
+                <span class="metric-label">Clienti seguiti anche dopo il lancio</span>
               </li>
             </ul>
           </div>
