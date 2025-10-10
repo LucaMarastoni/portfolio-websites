@@ -1016,6 +1016,43 @@ body {
   color: var(--text);
 }
 
+@media (min-width: 880px) {
+  .cta-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.9fr);
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .cta-actions {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    text-align: left;
+    gap: 1.4rem;
+  }
+
+  .cta-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cta-contact {
+    gap: 0.6rem;
+  }
+
+  .cta-link {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .cta-value {
+    font-size: 1.05rem;
+  }
+}
+
 .footer {
   padding: 2rem 1.5rem 3rem;
   background: rgba(8, 11, 18, 0.65);

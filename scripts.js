@@ -66,7 +66,7 @@ if (counters.length) {
     const suffix = element.dataset.suffix || "";
     const prefix = element.dataset.prefix || "";
     const decimals = parseInt(element.dataset.decimals || "0", 10);
-    const duration = parseInt(element.dataset.duration || "1600", 10);
+    const duration = parseInt(element.dataset.duration || "3600", 10);
     const startTime = performance.now();
 
     const step = (now) => {
@@ -90,31 +90,26 @@ if (counters.length) {
     setInitialValue(counter);
   });
 
-  const counterObserver = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) {
-          return;
-        }
+  const startCounters = () => {
+    counters.forEach((counter) => {
+      if (counter.dataset.animated === "true") {
+        return;
+      }
 
-        const counter = entry.target;
-        if (counter.dataset.animated === "true") {
-          obs.unobserve(counter);
-          return;
-        }
+      counter.dataset.animated = "true";
+      animateCount(counter);
+    });
+  };
 
-        counter.dataset.animated = "true";
-        animateCount(counter);
-        obs.unobserve(counter);
-      });
-    },
-    {
-      threshold: 0.35,
-      rootMargin: "0px 0px -15% 0px",
-    }
-  );
+  const triggerCounts = () => {
+    requestAnimationFrame(startCounters);
+  };
 
-  counters.forEach((counter) => counterObserver.observe(counter));
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    triggerCounts();
+  } else {
+    document.addEventListener("DOMContentLoaded", triggerCounts, { once: true });
+  }
 }
 
 const modalTriggers = document.querySelectorAll("[data-modal-target]");
