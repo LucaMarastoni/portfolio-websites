@@ -376,7 +376,28 @@ const ensureProjectVideoAutoplay = () => {
   const shouldReduceMotion = typeof prefersReducedMotion !== "undefined" && prefersReducedMotion.matches;
 
   document.querySelectorAll(".card-thumb video").forEach((video) => {
-    if (shouldReduceMotion) {
+    const forceAutoplay =
+      video.dataset.forceAutoplay === "true" || video.hasAttribute("data-force-autoplay");
+
+    video.muted = true;
+    video.autoplay = true;
+    video.loop = true;
+    video.playsInline = true;
+
+    if (!video.hasAttribute("muted")) {
+      video.setAttribute("muted", "");
+    }
+    if (!video.hasAttribute("autoplay")) {
+      video.setAttribute("autoplay", "");
+    }
+    if (!video.hasAttribute("loop")) {
+      video.setAttribute("loop", "");
+    }
+    if (!video.hasAttribute("playsinline")) {
+      video.setAttribute("playsinline", "");
+    }
+
+    if (shouldReduceMotion && !forceAutoplay) {
       if (typeof video._loopPauseTimeoutId === "number") {
         clearTimeout(video._loopPauseTimeoutId);
         video._loopPauseTimeoutId = undefined;
@@ -385,11 +406,9 @@ const ensureProjectVideoAutoplay = () => {
       return;
     }
 
-    if (video.autoplay && video.paused) {
-      const playPromise = video.play();
-      if (playPromise && typeof playPromise.catch === "function") {
-        playPromise.catch(() => {});
-      }
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+      playPromise.catch(() => {});
     }
   });
 };
