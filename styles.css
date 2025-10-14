@@ -612,7 +612,8 @@ body {
   overflow: hidden;
 }
 
-.card-thumb img {
+.card-thumb img,
+.card-thumb video {
   width: 100%;
   aspect-ratio: 16 / 10;
   object-fit: cover;
@@ -620,7 +621,12 @@ body {
   transition: transform 380ms ease;
 }
 
-.work-card:hover .card-thumb img {
+.card-thumb video {
+  background-color: #000;
+}
+
+.work-card:hover .card-thumb img,
+.work-card:hover .card-thumb video {
   transform: scale(1.05);
 }
 
