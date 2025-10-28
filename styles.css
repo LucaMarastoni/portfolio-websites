@@ -1015,6 +1015,116 @@ body {
   max-width: 190px;
 }
 
+.crm-metrics .highlight-metric {
+  flex: 1 1 100%;
+  order: -1;
+  position: relative;
+  padding: 1.4rem 1.8rem;
+  border-radius: var(--radius-lg);
+  align-items: flex-start;
+  background:
+    linear-gradient(140deg, rgba(88, 179, 255, 0.22), rgba(125, 109, 255, 0.24)),
+    rgba(12, 18, 32, 0.75);
+  border: 1px solid rgba(127, 178, 255, 0.28);
+  box-shadow: 0 28px 70px rgba(19, 32, 68, 0.48);
+  gap: 0.8rem;
+  overflow: hidden;
+  isolation: isolate;
+  animation: highlightMetricGlow 5.6s ease-in-out infinite;
+}
+
+.crm-metrics .highlight-metric::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.35), rgba(148, 182, 255, 0.18) 35%, transparent 72%);
+  mix-blend-mode: screen;
+  opacity: 0.65;
+  transform: scale(0.96);
+  transform-origin: center;
+  filter: blur(0.6px);
+  animation: highlightMetricPulse 6.4s ease-in-out infinite;
+}
+
+.crm-metrics .highlight-metric .metric-value {
+  font-size: 2.85rem;
+  font-weight: 700;
+  background: var(--accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0.02em;
+  position: relative;
+  z-index: 1;
+}
+
+.crm-metrics .highlight-metric .metric-label {
+  max-width: 460px;
+  color: rgba(232, 236, 245, 0.95);
+  font-size: 0.98rem;
+  letter-spacing: 0.015em;
+  text-transform: none;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes highlightMetricGlow {
+  0%,
+  100% {
+    box-shadow: 0 26px 65px rgba(19, 32, 68, 0.46);
+    transform: translateY(0);
+  }
+
+  50% {
+    box-shadow: 0 35px 90px rgba(88, 146, 255, 0.45);
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes highlightMetricPulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .crm-metrics .highlight-metric {
+    align-items: flex-start;
+    padding: 1.3rem 1.4rem;
+  }
+
+  .crm-metrics .highlight-metric .metric-label {
+    max-width: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .crm-metrics .highlight-metric {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .crm-metrics .highlight-metric {
+    animation: none;
+  }
+
+  .crm-metrics .highlight-metric::before {
+    animation: none;
+  }
+}
+
 .crm-feature-grid {
   display: grid;
   gap: 1.8rem;
