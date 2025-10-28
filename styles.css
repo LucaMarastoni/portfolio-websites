@@ -22,6 +22,8 @@ html {
     linear-gradient(180deg, #02040b 0%, #010206 52%, #000104 100%);
   background-color: #010206;
   color-scheme: dark;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 *,
@@ -213,6 +215,28 @@ body {
   }
   100% {
     transform: translate3d(2%, -2%, 0);
+  }
+}
+
+@keyframes ctaPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(94, 138, 255, 0);
+  }
+  50% {
+    box-shadow: 0 14px 38px rgba(94, 138, 255, 0.45);
+  }
+}
+
+@keyframes ctaSheen {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
@@ -494,6 +518,58 @@ body {
 
 .btn.outline:hover {
   background: rgba(255, 255, 255, 0.08);
+}
+
+.btn.cta-highlight {
+  position: relative;
+  padding: 0.95rem 2.4rem;
+  border: none;
+  color: var(--text);
+  background: transparent;
+  isolation: isolate;
+  animation: ctaPulse 3.8s ease-in-out infinite;
+  box-shadow: 0 0 0 rgba(98, 142, 255, 0);
+}
+
+.btn.cta-highlight::before,
+.btn.cta-highlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.btn.cta-highlight::before {
+  inset: -2px;
+  z-index: -2;
+  background: linear-gradient(135deg, rgba(88, 179, 255, 0.9), rgba(125, 109, 255, 0.85), rgba(255, 173, 106, 0.85));
+  background-size: 200% 200%;
+  filter: blur(0);
+  animation: ctaSheen 8s linear infinite;
+}
+
+.btn.cta-highlight::after {
+  z-index: -1;
+  background:
+    radial-gradient(circle at 22% 18%, rgba(156, 204, 255, 0.4), transparent 58%),
+    rgba(6, 10, 24, 0.9);
+  transition: opacity var(--transition);
+}
+
+.btn.cta-highlight:hover {
+  transform: translateY(-3px) scale(1.02);
+  animation: none;
+  box-shadow: 0 18px 45px rgba(94, 138, 255, 0.42);
+}
+
+.btn.cta-highlight:hover::after {
+  opacity: 0.78;
+}
+
+.btn.cta-highlight:focus-visible {
+  outline: 2px solid rgba(156, 204, 255, 0.9);
+  outline-offset: 3px;
 }
 
 .btn.inline {
