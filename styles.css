@@ -657,7 +657,7 @@ body {
   align-items: center;
   gap: clamp(3rem, 4vw, 5.5rem);
   min-width: max-content;
-  animation: logos-scroll 28s linear infinite;
+  animation: logos-scroll 18s linear infinite;
 }
 
 .logo-item {
@@ -667,13 +667,17 @@ body {
   font-size: 1rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(232, 236, 245, 0.8);
-  padding: 0.75rem 1.8rem;
+  color: rgba(248, 250, 255, 0.92);
+  padding: 0.78rem 2.1rem;
   border-radius: 999px;
-  border: 1px solid rgba(232, 236, 245, 0.18);
-  background: rgba(15, 20, 33, 0.55);
-  box-shadow: 0 18px 32px rgba(7, 10, 18, 0.45);
-  backdrop-filter: blur(6px);
+  border: 1px solid rgba(111, 153, 255, 0.55);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(143, 178, 255, 0.42), transparent 58%),
+    linear-gradient(160deg, rgba(25, 34, 62, 0.85) 0%, rgba(52, 65, 112, 0.55) 100%);
+  box-shadow:
+    0 22px 36px rgba(7, 10, 18, 0.42),
+    0 0 18px rgba(111, 153, 255, 0.35);
+  backdrop-filter: blur(8px);
   white-space: nowrap;
 }
 
@@ -791,6 +795,53 @@ body {
 .work-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 26px 50px rgba(11, 17, 30, 0.35);
+}
+
+.work-card.featured {
+  position: relative;
+  border-color: rgba(111, 153, 255, 0.55);
+  background: linear-gradient(155deg, rgba(18, 26, 46, 0.98) 0%, rgba(40, 56, 96, 0.78) 100%);
+  box-shadow:
+    0 34px 64px rgba(11, 17, 30, 0.48),
+    0 0 32px rgba(111, 153, 255, 0.25);
+  overflow: hidden;
+}
+
+.work-card.featured::before {
+  content: "";
+  position: absolute;
+  inset: -18% -28% 40% -28%;
+  background: radial-gradient(circle at 30% 40%, rgba(125, 165, 255, 0.35), transparent 60%);
+  filter: blur(0);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.work-card.featured .card-thumb,
+.work-card.featured .card-body {
+  position: relative;
+  z-index: 1;
+}
+
+.work-card.featured .tag {
+  background: linear-gradient(135deg, rgba(94, 134, 255, 0.95), rgba(178, 110, 255, 0.78));
+  box-shadow: 0 14px 24px rgba(49, 73, 128, 0.45);
+}
+
+.featured-badge {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(248, 250, 255, 0.9);
+  padding: 0.35rem 0.95rem;
+  margin-bottom: 0.4rem;
+  border-radius: 999px;
+  border: 1px solid rgba(111, 153, 255, 0.42);
+  background:
+    linear-gradient(135deg, rgba(62, 89, 170, 0.8) 0%, rgba(120, 86, 206, 0.68) 100%);
+  box-shadow: 0 12px 28px rgba(21, 28, 44, 0.48);
 }
 
 .card-thumb {
