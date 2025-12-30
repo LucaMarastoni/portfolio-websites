@@ -34,6 +34,57 @@ if (menuToggle && navLinks) {
   });
 }
 
+const rotatingWord = document.querySelector("[data-rotate]");
+
+if (rotatingWord) {
+  const parseWords = (value) => {
+    if (!value) {
+      return [];
+    }
+
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) {
+        return parsed.map((word) => String(word).trim()).filter(Boolean);
+      }
+    } catch (error) {
+      return value
+        .split(",")
+        .map((word) => word.trim())
+        .filter(Boolean);
+    }
+
+    return [];
+  };
+
+  const words = parseWords(rotatingWord.dataset.rotate);
+
+  if (words.length) {
+    const uniqueWords = Array.from(new Set(words));
+    const initialWord = uniqueWords[0];
+
+    rotatingWord.textContent = initialWord;
+
+    const interval = parseInt(rotatingWord.dataset.interval || "1500", 10);
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!prefersReducedMotion && uniqueWords.length > 1 && interval > 0) {
+      const fadeDuration = 320;
+      let index = 0;
+
+      window.setInterval(() => {
+        rotatingWord.classList.add("is-fading");
+
+        window.setTimeout(() => {
+          index = (index + 1) % uniqueWords.length;
+          rotatingWord.textContent = uniqueWords[index];
+          rotatingWord.classList.remove("is-fading");
+        }, fadeDuration);
+      }, interval);
+    }
+  }
+}
+
 const yearSpan = document.getElementById("year");
 if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
