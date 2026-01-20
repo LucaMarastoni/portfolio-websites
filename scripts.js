@@ -34,6 +34,27 @@ if (menuToggle && navLinks) {
   });
 }
 
+// Header scroll state.
+const header = document.querySelector(".header");
+if (header) {
+  let headerTicking = false;
+  const setHeaderState = () => {
+    headerTicking = false;
+    header.classList.toggle("is-scrolled", window.scrollY > 24);
+  };
+  const onHeaderScroll = () => {
+    if (headerTicking) {
+      return;
+    }
+    headerTicking = true;
+    requestAnimationFrame(setHeaderState);
+  };
+
+  setHeaderState();
+  window.addEventListener("scroll", onHeaderScroll, { passive: true });
+  window.addEventListener("resize", setHeaderState);
+}
+
 const rotatingWord = document.querySelector("[data-rotate]");
 
 if (rotatingWord) {
@@ -161,6 +182,52 @@ if (counters.length) {
   } else {
     document.addEventListener("DOMContentLoaded", triggerCounts, { once: true });
   }
+}
+
+// Metrics inline (mobile).
+const metricsInline = document.querySelector(".metrics-inline");
+if (metricsInline) {
+  const items = Array.from(document.querySelectorAll(".metrics li"));
+
+  const formatInlineNumber = (value, decimals) =>
+    value.toLocaleString("it-IT", {
+      minimumFractionDigits: decimals,
+      maximumFractionDigits: decimals,
+    });
+
+  metricsInline.textContent = "";
+
+  items.forEach((item) => {
+    const value = item.querySelector(".metric-value");
+    const label =
+      item.querySelector(".metric-label-short") || item.querySelector(".metric-label");
+
+    if (!value || !label) {
+      return;
+    }
+
+    const decimals = parseInt(value.dataset.decimals || "0", 10);
+    const prefix = value.dataset.prefix || "";
+    const suffix = value.dataset.suffix || "";
+    const targetValue = parseFloat(value.dataset.target || value.textContent || "0");
+    const formatted = Number.isFinite(targetValue)
+      ? formatInlineNumber(targetValue, decimals)
+      : value.textContent.trim();
+
+    const itemSpan = document.createElement("span");
+    itemSpan.className = "metrics-inline-item";
+
+    const valueSpan = document.createElement("span");
+    valueSpan.className = "metrics-inline-value";
+    valueSpan.textContent = `${prefix}${formatted}${suffix}`;
+
+    const labelSpan = document.createElement("span");
+    labelSpan.className = "metrics-inline-label";
+    labelSpan.textContent = label.textContent.trim();
+
+    itemSpan.append(valueSpan, " ", labelSpan);
+    metricsInline.appendChild(itemSpan);
+  });
 }
 
 const modalTriggers = document.querySelectorAll("[data-modal-target]");
@@ -434,16 +501,34 @@ const setupTimelineProgress = () => {
 
   const timeline = section.querySelector(".timeline");
   const activeRail = section.querySelector(".timeline-rail-active");
+  const steps = Array.from(section.querySelectorAll(".timeline-item"));
   if (!timeline || !activeRail) {
     return () => {};
   }
 
   if (prefersReducedMotion.matches) {
-    activeRail.style.height = "100%";
+    activeRail.style.transform = "scaleY(1)";
+    steps.forEach((step) => step.classList.add("is-complete"));
     return () => {};
   }
 
   let rafId = null;
+  let timelineHeight = 0;
+  let dotCenter = 0;
+  let dotSize = 0;
+  let stepOffsets = [];
+
+  const updateMeasurements = () => {
+    const timelineRect = timeline.getBoundingClientRect();
+    timelineHeight = timelineRect.height || timeline.scrollHeight;
+
+    const styles = window.getComputedStyle(timeline);
+    const dotTop = parseFloat(styles.getPropertyValue("--dot-top")) || 24;
+    dotSize = parseFloat(styles.getPropertyValue("--dot-size")) || 10;
+    dotCenter = dotTop + dotSize / 2;
+
+    stepOffsets = steps.map((step) => step.offsetTop + dotCenter);
+  };
 
   const updateProgress = () => {
     rafId = null;
@@ -454,17 +539,28 @@ const setupTimelineProgress = () => {
       return;
     }
 
+    if (!timelineHeight || stepOffsets.length !== steps.length) {
+      updateMeasurements();
+    }
+
     const start = viewportHeight * 0.85;
-    const end = viewportHeight * 0.15;
+    const end = viewportHeight * 0.2;
     const total = rect.height + start - end;
     if (total <= 0) {
-      activeRail.style.height = "0%";
+      activeRail.style.transform = "scaleY(0)";
       return;
     }
 
     const progress = (start - rect.top) / total;
     const clamped = Math.min(Math.max(progress, 0), 1);
-    activeRail.style.height = `${(clamped * 100).toFixed(2)}%`;
+    activeRail.style.transform = `scaleY(${clamped.toFixed(3)})`;
+
+    const filled = timelineHeight * clamped;
+    steps.forEach((step, index) => {
+      const offset = stepOffsets[index] || 0;
+      const isComplete = filled >= offset - dotSize * 0.2;
+      step.classList.toggle("is-complete", isComplete);
+    });
   };
 
   const requestUpdate = () => {
@@ -474,13 +570,19 @@ const setupTimelineProgress = () => {
     rafId = requestAnimationFrame(updateProgress);
   };
 
+  const handleResize = () => {
+    updateMeasurements();
+    requestUpdate();
+  };
+
+  updateMeasurements();
   requestUpdate();
   window.addEventListener("scroll", requestUpdate, { passive: true });
-  window.addEventListener("resize", requestUpdate);
+  window.addEventListener("resize", handleResize);
 
   return () => {
     window.removeEventListener("scroll", requestUpdate);
-    window.removeEventListener("resize", requestUpdate);
+    window.removeEventListener("resize", handleResize);
     if (rafId !== null) {
       cancelAnimationFrame(rafId);
     }
@@ -522,10 +624,7 @@ const setupTimelineStepObserver = () => {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-active");
-          observer.unobserve(entry.target);
-        }
+        entry.target.classList.toggle("is-active", entry.isIntersecting);
       });
     },
     {
