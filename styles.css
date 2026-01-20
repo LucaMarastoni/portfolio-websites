@@ -1199,67 +1199,53 @@ body::after {
 
 .clients-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 28px 36px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 32px 40px;
   align-items: center;
   justify-items: center;
-  margin-top: 1.6rem;
+  margin-top: 1.8rem;
 }
 
 .client {
-  padding: 14px 16px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: background var(--transition), border-color var(--transition), transform var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 6px 4px;
+  transition: transform var(--transition);
 }
 
-.client:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.16);
+.client-vaulted {
+  grid-column: 1 / -1;
+  justify-self: center;
 }
 
 .client-logo {
-  max-height: 36px;
+  height: 144px;
   width: auto;
+  max-width: 520px;
   object-fit: contain;
-  opacity: 0.75;
-  filter: saturate(0.9) contrast(1.05);
-  transition: opacity 0.2s ease, filter 0.2s ease, transform 0.2s ease;
+  opacity: 0.85;
+  filter: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .client:hover .client-logo {
   opacity: 1;
-  filter: none;
-  transform: translateY(-1px);
-}
-
-.client-text {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 36px;
-}
-
-.client-name {
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 0.74rem;
-  color: rgba(232, 236, 245, 0.8);
+  transform: translateY(-2px);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .service-card,
-  .collab-item,
-  .collab-meta,
   .timeline-item,
   .timeline-rail-active,
   .service-details,
   .service-toggle,
   .copy-toast,
   .header,
-  .nav {
+  .nav,
+  .client,
+  .client-logo {
     transition: none;
   }
 
@@ -1268,8 +1254,12 @@ body::after {
   }
 
   .service-card:hover,
-  .collab-item:hover,
-  .timeline-item:hover {
+  .timeline-item:hover,
+  .client:hover {
+    transform: none;
+  }
+
+  .client:hover .client-logo {
     transform: none;
   }
 
@@ -2819,7 +2809,7 @@ body.modal-open {
   }
 
   .clients-grid {
-    gap: 20px 22px;
+    gap: 24px 28px;
   }
 
   .hero-cta {
@@ -2863,12 +2853,13 @@ body.modal-open {
 @media (max-width: 640px) {
   /* Collaborazioni: loghi */
   .clients-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 18px 20px;
   }
 
   .client-logo {
-    max-height: 32px;
+    height: 112px;
+    max-width: 440px;
   }
 }
 
@@ -2932,19 +2923,13 @@ body.modal-open {
   }
 
   .client {
-    padding: 10px 12px;
+    min-height: 40px;
+    padding: 6px 2px;
   }
 
   .client-logo {
-    max-height: 28px;
-  }
-
-  .client-text {
-    min-height: 28px;
-  }
-
-  .client-name {
-    font-size: 0.68rem;
+    height: 104px;
+    max-width: 400px;
   }
 
   .section {
