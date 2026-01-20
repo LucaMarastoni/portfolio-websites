@@ -1970,7 +1970,8 @@ body::after {
 .timeline {
   --timeline-padding: 1.8rem;
   --rail-x: 36px;
-  --rail-width: 3px;
+  --rail-width: 5px;
+  --rail-trim: 8px;
   --rail-base: rgba(95, 138, 255, 0.22);
   --rail-active: rgba(125, 165, 255, 0.95);
   --dot-size: 12px;
@@ -1983,8 +1984,8 @@ body::after {
 
 .timeline-rail {
   position: absolute;
-  top: var(--timeline-padding);
-  bottom: var(--timeline-padding);
+  top: calc(var(--timeline-padding) + var(--rail-trim));
+  bottom: calc(var(--timeline-padding) + var(--rail-trim));
   left: var(--rail-x);
   width: var(--rail-width);
   z-index: 0;
@@ -2003,17 +2004,19 @@ body::after {
   top: 0;
   bottom: 0;
   background: linear-gradient(180deg, rgba(95, 138, 255, 0), var(--rail-base), rgba(95, 138, 255, 0));
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .timeline-rail-active {
   top: 0;
   height: 100%;
-  background: linear-gradient(180deg, rgba(125, 165, 255, 0.95), rgba(179, 110, 255, 0.9));
+  background: linear-gradient(180deg, rgba(125, 165, 255, 0.98), rgba(179, 110, 255, 0.9));
   border-radius: 999px;
   transform-origin: top;
   transform: scaleY(0);
-  box-shadow: 0 0 18px rgba(95, 138, 255, 0.28);
+  box-shadow:
+    0 0 22px rgba(95, 138, 255, 0.35),
+    0 0 42px rgba(179, 110, 255, 0.22);
   transition: transform 160ms ease-out, opacity var(--transition);
   will-change: transform;
 }
@@ -2794,7 +2797,8 @@ body.modal-open {
 
   .timeline {
     --rail-x: 28px;
-    --rail-width: 2px;
+    --rail-width: 4px;
+    --rail-trim: 6px;
     --dot-size: 10px;
     --dot-top: 1.55rem;
   }
@@ -2973,7 +2977,8 @@ body.modal-open {
   .timeline {
     --timeline-padding: 0.6rem;
     --rail-x: 18px;
-    --rail-width: 1px;
+    --rail-width: 3px;
+    --rail-trim: 4px;
     --dot-size: 8px;
     --dot-top: 1.35rem;
     padding: 0.6rem 0.8rem;

@@ -500,9 +500,10 @@ const setupTimelineProgress = () => {
   }
 
   const timeline = section.querySelector(".timeline");
+  const rail = section.querySelector(".timeline-rail");
   const activeRail = section.querySelector(".timeline-rail-active");
   const steps = Array.from(section.querySelectorAll(".timeline-item"));
-  if (!timeline || !activeRail) {
+  if (!timeline || !rail || !activeRail) {
     return () => {};
   }
 
@@ -513,21 +514,24 @@ const setupTimelineProgress = () => {
   }
 
   let rafId = null;
-  let timelineHeight = 0;
+  let railHeight = 0;
+  let railOffset = 0;
   let dotCenter = 0;
   let dotSize = 0;
   let stepOffsets = [];
 
   const updateMeasurements = () => {
     const timelineRect = timeline.getBoundingClientRect();
-    timelineHeight = timelineRect.height || timeline.scrollHeight;
+    const railRect = rail.getBoundingClientRect();
+    railHeight = railRect.height || rail.offsetHeight;
+    railOffset = railRect.top - timelineRect.top;
 
     const styles = window.getComputedStyle(timeline);
     const dotTop = parseFloat(styles.getPropertyValue("--dot-top")) || 24;
     dotSize = parseFloat(styles.getPropertyValue("--dot-size")) || 10;
     dotCenter = dotTop + dotSize / 2;
 
-    stepOffsets = steps.map((step) => step.offsetTop + dotCenter);
+    stepOffsets = steps.map((step) => step.offsetTop + dotCenter - railOffset);
   };
 
   const updateProgress = () => {
@@ -539,7 +543,7 @@ const setupTimelineProgress = () => {
       return;
     }
 
-    if (!timelineHeight || stepOffsets.length !== steps.length) {
+    if (!railHeight || stepOffsets.length !== steps.length) {
       updateMeasurements();
     }
 
@@ -555,7 +559,7 @@ const setupTimelineProgress = () => {
     const clamped = Math.min(Math.max(progress, 0), 1);
     activeRail.style.transform = `scaleY(${clamped.toFixed(3)})`;
 
-    const filled = timelineHeight * clamped;
+    const filled = railHeight * clamped;
     steps.forEach((step, index) => {
       const offset = stepOffsets[index] || 0;
       const isComplete = filled >= offset - dotSize * 0.2;
