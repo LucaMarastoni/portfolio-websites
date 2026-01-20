@@ -423,6 +423,121 @@ if (typeof prefersReducedMotion.addEventListener === "function") {
   prefersReducedMotion.addListener(handleMotionPreferenceChange);
 }
 
+// Timeline progress rail + step highlights.
+let teardownTimelineProgress = null;
+
+const setupTimelineProgress = () => {
+  const section = document.querySelector("#process");
+  if (!section) {
+    return () => {};
+  }
+
+  const timeline = section.querySelector(".timeline");
+  const activeRail = section.querySelector(".timeline-rail-active");
+  if (!timeline || !activeRail) {
+    return () => {};
+  }
+
+  if (prefersReducedMotion.matches) {
+    activeRail.style.height = "100%";
+    return () => {};
+  }
+
+  let rafId = null;
+
+  const updateProgress = () => {
+    rafId = null;
+    const rect = timeline.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+    if (rect.height <= 0) {
+      return;
+    }
+
+    const start = viewportHeight * 0.85;
+    const end = viewportHeight * 0.15;
+    const total = rect.height + start - end;
+    if (total <= 0) {
+      activeRail.style.height = "0%";
+      return;
+    }
+
+    const progress = (start - rect.top) / total;
+    const clamped = Math.min(Math.max(progress, 0), 1);
+    activeRail.style.height = `${(clamped * 100).toFixed(2)}%`;
+  };
+
+  const requestUpdate = () => {
+    if (rafId !== null) {
+      return;
+    }
+    rafId = requestAnimationFrame(updateProgress);
+  };
+
+  requestUpdate();
+  window.addEventListener("scroll", requestUpdate, { passive: true });
+  window.addEventListener("resize", requestUpdate);
+
+  return () => {
+    window.removeEventListener("scroll", requestUpdate);
+    window.removeEventListener("resize", requestUpdate);
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+    }
+  };
+};
+
+const hydrateTimelineProgress = () => {
+  if (teardownTimelineProgress) {
+    teardownTimelineProgress();
+    teardownTimelineProgress = null;
+  }
+
+  teardownTimelineProgress = setupTimelineProgress();
+};
+
+hydrateTimelineProgress();
+
+const handleTimelineMotionPreferenceChange = () => {
+  hydrateTimelineProgress();
+};
+
+if (typeof prefersReducedMotion.addEventListener === "function") {
+  prefersReducedMotion.addEventListener("change", handleTimelineMotionPreferenceChange);
+} else if (typeof prefersReducedMotion.addListener === "function") {
+  prefersReducedMotion.addListener(handleTimelineMotionPreferenceChange);
+}
+
+const setupTimelineStepObserver = () => {
+  const items = Array.from(document.querySelectorAll("#process .timeline-item"));
+  if (!items.length) {
+    return;
+  }
+
+  if (!("IntersectionObserver" in window)) {
+    items.forEach((item) => item.classList.add("is-active"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-active");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.45,
+    }
+  );
+
+  items.forEach((item) => observer.observe(item));
+};
+
+setupTimelineStepObserver();
+
 const ensureProjectVideoAutoplay = () => {
   const shouldReduceMotion = typeof prefersReducedMotion !== "undefined" && prefersReducedMotion.matches;
 
@@ -525,3 +640,227 @@ if (typeof prefersReducedMotion.addEventListener === "function") {
 } else if (typeof prefersReducedMotion.addListener === "function") {
   prefersReducedMotion.addListener(handleVideoMotionPreferenceChange);
 }
+
+let teardownCursorFollower = null;
+
+const setupCursorFollower = () => {
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+  const canHover = window.matchMedia("(hover: hover)").matches;
+
+  if (!finePointer || !canHover || prefersReducedMotion.matches) {
+    return () => {};
+  }
+
+  const cursor = document.createElement("div");
+  cursor.className = "cursor-follower";
+  cursor.setAttribute("aria-hidden", "true");
+  document.body.appendChild(cursor);
+
+  let currentX = window.innerWidth * 0.5;
+  let currentY = window.innerHeight * 0.5;
+  let targetX = currentX;
+  let targetY = currentY;
+  let frameId = null;
+  const ease = 0.18;
+
+  const render = () => {
+    frameId = null;
+    currentX += (targetX - currentX) * ease;
+    currentY += (targetY - currentY) * ease;
+    cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+
+    if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
+      frameId = requestAnimationFrame(render);
+    }
+  };
+
+  const handlePointerMove = (event) => {
+    targetX = event.clientX;
+    targetY = event.clientY;
+    cursor.classList.add("is-visible");
+    if (frameId === null) {
+      frameId = requestAnimationFrame(render);
+    }
+  };
+
+  const handlePointerLeave = () => {
+    cursor.classList.remove("is-visible");
+  };
+
+  window.addEventListener("pointermove", handlePointerMove);
+  window.addEventListener("blur", handlePointerLeave);
+
+  const pointerLeaveTarget = document.body;
+  if (pointerLeaveTarget) {
+    pointerLeaveTarget.addEventListener("pointerleave", handlePointerLeave);
+  }
+
+  return () => {
+    window.removeEventListener("pointermove", handlePointerMove);
+    window.removeEventListener("blur", handlePointerLeave);
+    if (pointerLeaveTarget) {
+      pointerLeaveTarget.removeEventListener("pointerleave", handlePointerLeave);
+    }
+    if (frameId !== null) {
+      cancelAnimationFrame(frameId);
+    }
+    cursor.remove();
+  };
+};
+
+const hydrateCursorFollower = () => {
+  if (teardownCursorFollower) {
+    teardownCursorFollower();
+    teardownCursorFollower = null;
+  }
+
+  teardownCursorFollower = setupCursorFollower();
+};
+
+hydrateCursorFollower();
+
+const handleCursorMotionPreferenceChange = () => {
+  hydrateCursorFollower();
+};
+
+if (typeof prefersReducedMotion.addEventListener === "function") {
+  prefersReducedMotion.addEventListener("change", handleCursorMotionPreferenceChange);
+} else if (typeof prefersReducedMotion.addListener === "function") {
+  prefersReducedMotion.addListener(handleCursorMotionPreferenceChange);
+}
+
+// Services accordion (mobile-first).
+let teardownServiceAccordions = null;
+const serviceAccordionMedia = window.matchMedia("(max-width: 720px)");
+const coarsePointerMedia = window.matchMedia("(hover: none), (pointer: coarse)");
+
+const setupServiceAccordions = () => {
+  const cards = Array.from(document.querySelectorAll(".service-card"));
+  if (!cards.length) {
+    return () => {};
+  }
+
+  const shouldCollapse = serviceAccordionMedia.matches || coarsePointerMedia.matches;
+  const cleanups = [];
+
+  cards.forEach((card) => {
+    const toggle = card.querySelector(".service-toggle");
+    const details = card.querySelector(".service-details");
+
+    if (!toggle || !details) {
+      return;
+    }
+
+    if (!shouldCollapse) {
+      card.classList.remove("is-open");
+      toggle.setAttribute("aria-expanded", "false");
+      details.removeAttribute("aria-hidden");
+      return;
+    }
+
+    details.setAttribute("aria-hidden", "true");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.textContent = "Dettagli";
+
+    const handleToggle = () => {
+      const isOpen = card.classList.toggle("is-open");
+      toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      details.setAttribute("aria-hidden", isOpen ? "false" : "true");
+      toggle.textContent = isOpen ? "Chiudi" : "Dettagli";
+    };
+
+    toggle.addEventListener("click", handleToggle);
+    cleanups.push(() => toggle.removeEventListener("click", handleToggle));
+  });
+
+  return () => {
+    cleanups.forEach((cleanup) => cleanup());
+  };
+};
+
+const hydrateServiceAccordions = () => {
+  if (teardownServiceAccordions) {
+    teardownServiceAccordions();
+    teardownServiceAccordions = null;
+  }
+
+  teardownServiceAccordions = setupServiceAccordions();
+};
+
+hydrateServiceAccordions();
+
+const handleServiceAccordionChange = () => {
+  hydrateServiceAccordions();
+};
+
+if (typeof serviceAccordionMedia.addEventListener === "function") {
+  serviceAccordionMedia.addEventListener("change", handleServiceAccordionChange);
+  coarsePointerMedia.addEventListener("change", handleServiceAccordionChange);
+} else if (typeof serviceAccordionMedia.addListener === "function") {
+  serviceAccordionMedia.addListener(handleServiceAccordionChange);
+  coarsePointerMedia.addListener(handleServiceAccordionChange);
+}
+
+// Copy-to-clipboard for contacts.
+const setupCopyButtons = () => {
+  const buttons = Array.from(document.querySelectorAll(".copy-btn"));
+  const toast = document.getElementById("copy-toast");
+
+  if (!buttons.length || !toast) {
+    return;
+  }
+
+  let toastTimeoutId = null;
+
+  const showToast = (message) => {
+    toast.textContent = message;
+    toast.classList.add("is-visible");
+
+    if (toastTimeoutId) {
+      clearTimeout(toastTimeoutId);
+    }
+
+    const duration = prefersReducedMotion.matches ? 1200 : 1600;
+    toastTimeoutId = window.setTimeout(() => {
+      toast.classList.remove("is-visible");
+    }, duration);
+  };
+
+  const copyWithFallback = (text) => {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+
+    return new Promise((resolve, reject) => {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const successful = document.execCommand("copy");
+      textarea.remove();
+      if (successful) {
+        resolve();
+      } else {
+        reject(new Error("Copy failed"));
+      }
+    });
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const text = button.dataset.copy;
+      if (!text) {
+        return;
+      }
+
+      copyWithFallback(text)
+        .then(() => showToast("Copiato"))
+        .catch(() => showToast("Non copiato"));
+    });
+  });
+};
+
+setupCopyButtons();
