@@ -1215,11 +1215,6 @@ body::after {
   transition: transform var(--transition);
 }
 
-.client-vaulted {
-  grid-column: 1 / -1;
-  justify-self: center;
-}
-
 .client-logo {
   height: 144px;
   width: auto;
