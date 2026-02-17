@@ -15,6 +15,345 @@ const observer = new IntersectionObserver(
 
 document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
+// Reactive particle background tuning.
+const BG_CONFIG = {
+  PARTICLE_COUNT: 110,
+  SPEED: 0.28,
+  RADIUS_MIN: 0.9,
+  RADIUS_MAX: 2.6,
+  ATTRACT_RADIUS: 220,
+  ATTRACT_STRENGTH: 0.018,
+  OVERLAY_OPACITY: 0.16,
+  DPR_CAP: 1.75,
+  SCROLL_PARALLAX: 26,
+  PALETTE: {
+    bgTop: "#0B0F14",
+    bgBottom: "#121826",
+    particleA: "46,230,198",
+    particleB: "141,125,202",
+  },
+};
+
+const setupReactiveBackground = () => {
+  const canvas = document.getElementById("bg-canvas");
+  if (!canvas) {
+    return;
+  }
+
+  const root = document.documentElement;
+  const reducedMotionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const supportsFinePointer =
+    window.matchMedia("(pointer: fine)").matches && window.matchMedia("(hover: hover)").matches;
+
+  const ctx = canvas.getContext("2d", { alpha: true, desynchronized: true });
+  if (!ctx) {
+    root.classList.add("bg-fallback");
+    canvas.style.display = "none";
+    return;
+  }
+
+  root.classList.remove("bg-fallback");
+  root.style.setProperty("--bg-overlay-opacity", String(BG_CONFIG.OVERLAY_OPACITY));
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+  let dpr = 1;
+  let rafId = null;
+  let resizeRafId = null;
+  let running = false;
+  let lastTime = 0;
+  let scrollTarget = 0;
+  let scrollCurrent = 0;
+  let pointerActive = false;
+  let lastTickBucket = -1;
+
+  const pointer = {
+    x: width * 0.5,
+    y: height * 0.5,
+    tx: width * 0.5,
+    ty: height * 0.5,
+  };
+
+  const rand = (min, max) => min + Math.random() * (max - min);
+
+  const particles = Array.from({ length: BG_CONFIG.PARTICLE_COUNT }, () => {
+    const radius = rand(BG_CONFIG.RADIUS_MIN, BG_CONFIG.RADIUS_MAX);
+    const depth = rand(0.2, 1);
+    const drift = rand(0.85, 1.2);
+    const angle = rand(0, Math.PI * 2);
+    const speed = BG_CONFIG.SPEED * drift;
+    return {
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      radius,
+      depth,
+      alpha: rand(0.22, 0.72),
+      tint: Math.random() < 0.5 ? BG_CONFIG.PALETTE.particleA : BG_CONFIG.PALETTE.particleB,
+      twinkle: rand(0.4, 1.6),
+      phase: rand(0, Math.PI * 2),
+    };
+  });
+
+  const resizeCanvas = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, BG_CONFIG.DPR_CAP);
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    const nextWidth = Math.max(1, Math.round(width * dpr));
+    const nextHeight = Math.max(1, Math.round(height * dpr));
+
+    if (canvas.width !== nextWidth || canvas.height !== nextHeight) {
+      canvas.width = nextWidth;
+      canvas.height = nextHeight;
+    }
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    pointer.x = Math.min(pointer.x, width);
+    pointer.y = Math.min(pointer.y, height);
+    pointer.tx = pointer.x;
+    pointer.ty = pointer.y;
+  };
+
+  const drawBackdrop = () => {
+    const gradient = ctx.createLinearGradient(0, 0, 0, height);
+    gradient.addColorStop(0, BG_CONFIG.PALETTE.bgTop);
+    gradient.addColorStop(1, BG_CONFIG.PALETTE.bgBottom);
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+  };
+
+  const drawVignette = () => {
+    const vignette = ctx.createRadialGradient(
+      width * 0.5,
+      height * 0.5,
+      Math.min(width, height) * 0.24,
+      width * 0.5,
+      height * 0.5,
+      Math.max(width, height) * 0.78
+    );
+    vignette.addColorStop(0, "rgba(3, 8, 18, 0)");
+    vignette.addColorStop(1, "rgba(2, 4, 10, 0.52)");
+    ctx.fillStyle = vignette;
+    ctx.fillRect(0, 0, width, height);
+  };
+
+  const updatePointer = () => {
+    pointer.x += (pointer.tx - pointer.x) * 0.14;
+    pointer.y += (pointer.ty - pointer.y) * 0.14;
+  };
+
+  const updateParticles = (dt, t) => {
+    const influenceRadiusSq = BG_CONFIG.ATTRACT_RADIUS * BG_CONFIG.ATTRACT_RADIUS;
+    scrollCurrent += (scrollTarget - scrollCurrent) * 0.08;
+
+    particles.forEach((p) => {
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+
+      if (p.x < -28) {
+        p.x = width + 28;
+      } else if (p.x > width + 28) {
+        p.x = -28;
+      }
+
+      if (p.y < -28) {
+        p.y = height + 28;
+      } else if (p.y > height + 28) {
+        p.y = -28;
+      }
+
+      if (supportsFinePointer && pointerActive) {
+        const dx = pointer.x - p.x;
+        const dy = pointer.y - p.y;
+        const distSq = dx * dx + dy * dy;
+
+        if (distSq > 1 && distSq < influenceRadiusSq) {
+          const dist = Math.sqrt(distSq);
+          const force = (1 - dist / BG_CONFIG.ATTRACT_RADIUS) * BG_CONFIG.ATTRACT_STRENGTH;
+          const nx = dx / dist;
+          const ny = dy / dist;
+          p.vx += nx * force * 12;
+          p.vy += ny * force * 12;
+        }
+      }
+
+      p.vx *= 0.994;
+      p.vy *= 0.994;
+
+      const speedLimit = BG_CONFIG.SPEED * 2.8;
+      const speedSq = p.vx * p.vx + p.vy * p.vy;
+      if (speedSq > speedLimit * speedLimit) {
+        const speed = Math.sqrt(speedSq);
+        p.vx = (p.vx / speed) * speedLimit;
+        p.vy = (p.vy / speed) * speedLimit;
+      }
+
+      const twinkle = 0.6 + 0.4 * Math.sin(t * p.twinkle + p.phase);
+      const py = p.y + scrollCurrent * p.depth * BG_CONFIG.SCROLL_PARALLAX;
+      const alpha = p.alpha * twinkle;
+      const glowRadius = p.radius * (2.6 + p.depth * 1.3);
+
+      const glow = ctx.createRadialGradient(p.x, py, 0, p.x, py, glowRadius);
+      glow.addColorStop(0, `rgba(${p.tint}, ${alpha * 0.22})`);
+      glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(p.x, py, glowRadius, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = `rgba(${p.tint}, ${Math.min(alpha * 0.9, 0.88)})`;
+      ctx.beginPath();
+      ctx.arc(p.x, py, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  };
+
+  const drawFrame = (timeMs) => {
+    const t = timeMs * 0.001;
+    if (!lastTime) {
+      lastTime = timeMs;
+    }
+
+    const dt = Math.min((timeMs - lastTime) / 16.6667, 2.1);
+    lastTime = timeMs;
+
+    updatePointer();
+    drawBackdrop();
+    updateParticles(dt, t);
+    drawVignette();
+  };
+
+  const render = (timeMs) => {
+    if (!running) {
+      return;
+    }
+
+    const bucket = Math.floor(timeMs / 2000);
+    if (bucket !== lastTickBucket) {
+      lastTickBucket = bucket;
+      console.log("BG tick", (timeMs * 0.001).toFixed(2));
+    }
+
+    drawFrame(timeMs);
+    rafId = requestAnimationFrame(render);
+  };
+
+  const stop = () => {
+    running = false;
+    if (rafId !== null) {
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+  };
+
+  const start = () => {
+    if (running || reducedMotionMedia.matches || document.visibilityState === "hidden") {
+      return;
+    }
+    running = true;
+    rafId = requestAnimationFrame(render);
+  };
+
+  const drawStatic = () => {
+    stop();
+    drawFrame(performance.now());
+  };
+
+  const handleResize = () => {
+    if (resizeRafId !== null) {
+      return;
+    }
+
+    resizeRafId = requestAnimationFrame(() => {
+      resizeRafId = null;
+      resizeCanvas();
+      drawStatic();
+      if (!reducedMotionMedia.matches && document.visibilityState === "visible") {
+        start();
+      }
+    });
+  };
+
+  const handleVisibility = () => {
+    if (document.visibilityState === "hidden") {
+      stop();
+      return;
+    }
+
+    if (reducedMotionMedia.matches) {
+      drawStatic();
+      return;
+    }
+
+    start();
+  };
+
+  const handleMotionChange = () => {
+    if (reducedMotionMedia.matches) {
+      drawStatic();
+    } else if (document.visibilityState === "visible") {
+      start();
+    }
+  };
+
+  const handlePointerMove = (event) => {
+    if (!supportsFinePointer) {
+      return;
+    }
+
+    pointerActive = true;
+    pointer.tx = event.clientX;
+    pointer.ty = event.clientY;
+  };
+
+  const handlePointerLeave = () => {
+    pointerActive = false;
+    pointer.tx = width * 0.5;
+    pointer.ty = height * 0.5;
+  };
+
+  const handleScroll = () => {
+    const scrollable = document.body.scrollHeight - window.innerHeight;
+    if (scrollable <= 0) {
+      scrollTarget = 0;
+      return;
+    }
+    scrollTarget = window.scrollY / scrollable - 0.5;
+  };
+
+  resizeCanvas();
+  drawStatic();
+  handleScroll();
+
+  window.addEventListener("resize", handleResize, { passive: true });
+  document.addEventListener("visibilitychange", handleVisibility);
+  window.addEventListener("scroll", handleScroll, { passive: true });
+
+  if (supportsFinePointer) {
+    window.addEventListener("pointermove", handlePointerMove, { passive: true });
+    window.addEventListener("pointerleave", handlePointerLeave);
+    window.addEventListener("blur", handlePointerLeave);
+  }
+
+  if (typeof reducedMotionMedia.addEventListener === "function") {
+    reducedMotionMedia.addEventListener("change", handleMotionChange);
+  } else if (typeof reducedMotionMedia.addListener === "function") {
+    reducedMotionMedia.addListener(handleMotionChange);
+  }
+
+  if (!reducedMotionMedia.matches && document.visibilityState === "visible") {
+    start();
+  }
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", setupReactiveBackground, { once: true });
+} else {
+  setupReactiveBackground();
+}
+
 const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 
@@ -470,7 +809,10 @@ const hydrateParallax = () => {
     return;
   }
 
-  const targets = document.querySelectorAll("[data-depth]");
+  const targets = Array.from(document.querySelectorAll("[data-depth]")).filter((target) => {
+    const styles = window.getComputedStyle(target);
+    return styles.display !== "none" && styles.visibility !== "hidden";
+  });
   if (!targets.length) {
     return;
   }
