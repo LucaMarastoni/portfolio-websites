@@ -1249,20 +1249,25 @@ html.bg-fallback body::after {
   color: var(--accent-solid);
   font-weight: 600;
   display: inline-flex;
-  gap: 0.4rem;
+  gap: 0.45rem;
   align-items: center;
 }
 
 .service-link::after {
-  content: "->";
-  font-size: 0.95rem;
-  transition: transform var(--transition);
+  content: "";
+  width: 0.56rem;
+  height: 0.56rem;
+  border-top: 1.8px solid currentColor;
+  border-right: 1.8px solid currentColor;
+  transform: translateY(1px) rotate(45deg);
+  transition: transform var(--transition), opacity var(--transition);
+  opacity: 0.9;
 }
 
 .service-card:hover .service-link::after,
 .service-card:focus-within .service-link::after,
 .service-card.is-open .service-link::after {
-  transform: translateX(3px);
+  transform: translate(3px, -1px) rotate(45deg);
 }
 
 .service-link:hover,
@@ -1365,6 +1370,7 @@ html.bg-fallback body::after {
   .timeline-rail-active,
   .service-details,
   .service-toggle,
+  .contact-card,
   .copy-toast,
   .header,
   .nav,
@@ -1378,11 +1384,13 @@ html.bg-fallback body::after {
   }
 
   .service-card::before,
-  .service-pulse {
+  .service-pulse,
+  .contact-card::before {
     animation: none;
   }
 
   .service-card:hover,
+  .contact-card:hover,
   .timeline-item:hover,
   .client:hover {
     transform: none;
@@ -2343,6 +2351,31 @@ html.bg-fallback body::after {
   color: rgba(232, 236, 245, 0.72);
 }
 
+.workspace-logos {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 0.35rem;
+  vertical-align: middle;
+}
+
+.workspace-logo {
+  width: 1.18rem;
+  height: 1.18rem;
+  display: inline-flex;
+  border-radius: 0.32rem;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.workspace-logo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+
 .timeline-item:focus-visible {
   outline: 2px solid rgba(156, 204, 255, 0.9);
   outline-offset: 3px;
@@ -2398,10 +2431,126 @@ html.bg-fallback body::after {
   gap: 1rem;
 }
 
+.cta-card.contact-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  gap: 2rem;
+  background:
+    radial-gradient(130% 140% at 0% 0%, rgba(46, 230, 198, 0.18), transparent 62%),
+    radial-gradient(120% 120% at 92% 100%, rgba(141, 125, 202, 0.24), transparent 58%),
+    linear-gradient(145deg, rgba(12, 18, 32, 0.95) 0%, rgba(9, 14, 26, 0.93) 55%, rgba(7, 11, 20, 0.96) 100%);
+  border: 1px solid rgba(146, 194, 255, 0.18);
+  box-shadow:
+    0 26px 58px rgba(4, 8, 16, 0.5),
+    0 0 34px rgba(46, 230, 198, 0.12);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+
+.cta-card.contact-card:hover,
+.cta-card.contact-card:focus-within {
+  transform: translateY(-4px);
+  border-color: rgba(146, 194, 255, 0.32);
+  box-shadow:
+    0 30px 62px rgba(4, 8, 16, 0.56),
+    0 0 36px rgba(46, 230, 198, 0.18);
+}
+
+.cta-card.contact-card::before {
+  content: "";
+  position: absolute;
+  inset: -45% auto auto -18%;
+  width: min(430px, 72vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(46, 230, 198, 0.22), rgba(46, 230, 198, 0));
+  filter: blur(4px);
+  opacity: 0.9;
+  animation: contactAuraShift 12s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cta-card.contact-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.07), transparent 30%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 60px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cta-card.contact-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(232, 236, 245, 0.7);
+}
+
+.contact-card .headline-animated {
+  margin: 0;
+  display: inline-block;
+  color: transparent;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 14px 34px rgba(46, 230, 198, 0.16);
+}
+
+.contact-lead {
+  font-size: 1.03rem;
+  color: rgba(232, 236, 245, 0.9);
+  max-width: 60ch;
+}
+
+.contact-metrics {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.contact-metrics li {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 198, 255, 0.26);
+  background: rgba(8, 13, 24, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(46, 230, 198, 0.06);
+}
+
+.contact-metrics strong {
+  font-size: 0.92rem;
+  color: rgba(236, 241, 252, 0.96);
+  letter-spacing: 0.02em;
+}
+
+.contact-metrics span {
+  font-size: 0.75rem;
+  color: rgba(232, 236, 245, 0.72);
+}
+
 .contact-hints {
   margin-top: 0.4rem;
   display: grid;
   gap: 0.6rem;
+  padding: 0.85rem 0.95rem;
+  border-radius: 12px;
+  border: 1px solid rgba(147, 195, 255, 0.16);
+  background: rgba(8, 12, 22, 0.52);
 }
 
 .contact-title {
@@ -2444,6 +2593,12 @@ html.bg-fallback body::after {
   flex-direction: column;
   gap: 0.9rem;
   align-items: stretch;
+  padding: 1.05rem;
+  border-radius: 14px;
+  border: 1px solid rgba(147, 195, 255, 0.16);
+  background:
+    radial-gradient(130% 120% at 100% 0%, rgba(46, 230, 198, 0.14), transparent 55%),
+    rgba(8, 12, 22, 0.7);
 }
 
 
@@ -2519,6 +2674,18 @@ html.bg-fallback body::after {
 
 .contact-card .cta-link {
   flex: 1;
+}
+
+@keyframes contactAuraShift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(10%, 8%, 0) scale(1.06);
+  }
+  100% {
+    transform: translate3d(-6%, 6%, 0) scale(0.98);
+  }
 }
 
 .copy-btn {
@@ -2610,6 +2777,7 @@ html.bg-fallback body::after {
 
   .contact-card {
     align-items: start;
+    grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
   }
 }
 
@@ -2850,23 +3018,26 @@ body.modal-open {
     flex-direction: column;
     gap: 6px;
     margin-left: 0;
-    width: 44px;
-    height: 44px;
+    width: auto;
+    height: auto;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.45rem;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    transition: background var(--transition);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    transition: none;
   }
 
   .menu-toggle:hover,
   .menu-toggle:focus-visible {
-    background: rgba(255, 255, 255, 0.06);
+    background: transparent;
   }
 
   .menu-toggle.open {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.22);
+    background: transparent;
   }
 
   .hero-title-main {
@@ -3049,6 +3220,15 @@ body.modal-open {
   .cta-row {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .contact-metrics {
+    gap: 0.45rem;
+  }
+
+  .contact-metrics li {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .copy-btn {
@@ -3437,14 +3617,7 @@ a:focus-visible {
 #services.section-alt::before,
 #process.section-alt::before,
 #crm.section-alt::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 100vw;
-  transform: translateX(-50%);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  pointer-events: none;
+  content: none;
 }
 
 #crm.section {
