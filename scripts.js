@@ -1246,6 +1246,101 @@ if (typeof serviceAccordionMedia.addEventListener === "function") {
   coarsePointerMedia.addListener(handleServiceAccordionChange);
 }
 
+// Service cards spotlight + tilt interaction on fine pointers.
+let teardownServiceCardFx = null;
+const serviceCardFxMedia = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+const setupServiceCardFx = () => {
+  const cards = Array.from(document.querySelectorAll(".service-card"));
+  if (!cards.length || prefersReducedMotion.matches || !serviceCardFxMedia.matches) {
+    cards.forEach((card) => {
+      card.style.removeProperty("--service-spot-x");
+      card.style.removeProperty("--service-spot-y");
+      card.style.removeProperty("--service-tilt-x");
+      card.style.removeProperty("--service-tilt-y");
+    });
+    return () => {};
+  }
+
+  const cleanups = [];
+
+  cards.forEach((card) => {
+    const resetCard = () => {
+      card.style.setProperty("--service-spot-x", "50%");
+      card.style.setProperty("--service-spot-y", "14%");
+      card.style.setProperty("--service-tilt-x", "0deg");
+      card.style.setProperty("--service-tilt-y", "0deg");
+    };
+
+    const handlePointerMove = (event) => {
+      const rect = card.getBoundingClientRect();
+      if (!rect.width || !rect.height) {
+        return;
+      }
+
+      const pointerX = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+      const pointerY = Math.min(Math.max((event.clientY - rect.top) / rect.height, 0), 1);
+      const tiltX = (0.5 - pointerY) * 4;
+      const tiltY = (pointerX - 0.5) * 7;
+
+      card.style.setProperty("--service-spot-x", `${(pointerX * 100).toFixed(1)}%`);
+      card.style.setProperty("--service-spot-y", `${(pointerY * 100).toFixed(1)}%`);
+      card.style.setProperty("--service-tilt-x", `${tiltX.toFixed(2)}deg`);
+      card.style.setProperty("--service-tilt-y", `${tiltY.toFixed(2)}deg`);
+    };
+
+    resetCard();
+    card.addEventListener("pointermove", handlePointerMove);
+    card.addEventListener("pointerleave", resetCard);
+    card.addEventListener("pointercancel", resetCard);
+    card.addEventListener("pointerup", resetCard);
+
+    cleanups.push(() => {
+      card.removeEventListener("pointermove", handlePointerMove);
+      card.removeEventListener("pointerleave", resetCard);
+      card.removeEventListener("pointercancel", resetCard);
+      card.removeEventListener("pointerup", resetCard);
+      card.style.removeProperty("--service-spot-x");
+      card.style.removeProperty("--service-spot-y");
+      card.style.removeProperty("--service-tilt-x");
+      card.style.removeProperty("--service-tilt-y");
+    });
+  });
+
+  return () => {
+    cleanups.forEach((cleanup) => cleanup());
+  };
+};
+
+const hydrateServiceCardFx = () => {
+  if (teardownServiceCardFx) {
+    teardownServiceCardFx();
+    teardownServiceCardFx = null;
+  }
+
+  teardownServiceCardFx = setupServiceCardFx();
+};
+
+hydrateServiceCardFx();
+
+const handleServiceCardFxChange = () => {
+  hydrateServiceCardFx();
+};
+
+if (
+  typeof serviceCardFxMedia.addEventListener === "function" &&
+  typeof prefersReducedMotion.addEventListener === "function"
+) {
+  serviceCardFxMedia.addEventListener("change", handleServiceCardFxChange);
+  prefersReducedMotion.addEventListener("change", handleServiceCardFxChange);
+} else if (
+  typeof serviceCardFxMedia.addListener === "function" &&
+  typeof prefersReducedMotion.addListener === "function"
+) {
+  serviceCardFxMedia.addListener(handleServiceCardFxChange);
+  prefersReducedMotion.addListener(handleServiceCardFxChange);
+}
+
 // Copy-to-clipboard for contacts.
 const setupCopyButtons = () => {
   const buttons = Array.from(document.querySelectorAll(".copy-btn"));
