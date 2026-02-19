@@ -1359,6 +1359,11 @@ html.bg-fallback body::after {
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.client-logo-terra {
+  height: 100px;
+  width: 100px;
+}
+
 .client:hover .client-logo {
   opacity: 1;
   transform: translateY(-2px);
