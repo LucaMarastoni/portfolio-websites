@@ -97,43 +97,50 @@ html.bg-fallback body::after {
   mix-blend-mode: soft-light;
 }
 
-.cursor-follower {
+.cursor-layer {
   position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: absolute;
   top: 0;
   left: 0;
-  width: clamp(34px, 3.2vw, 54px);
-  height: clamp(34px, 3.2vw, 54px);
   border-radius: 50%;
-  border: 1px solid rgba(46, 230, 198, 0.55);
-  background: radial-gradient(circle, rgba(46, 230, 198, 0.18) 0%, rgba(46, 230, 198, 0) 62%);
-  box-shadow: 0 0 24px rgba(46, 230, 198, 0.24);
-  pointer-events: none;
   opacity: 0;
-  z-index: 9999;
-  transition: opacity 220ms ease;
-  mix-blend-mode: screen;
-  will-change: transform;
-}
-
-.cursor-follower::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 16px rgba(46, 230, 198, 0.5);
   transform: translate(-50%, -50%);
+  will-change: transform, width, height, opacity;
 }
 
-.cursor-follower.is-visible {
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  transition: opacity 200ms ease;
+}
+
+.cursor-ring {
+  width: 28px;
+  height: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  transition: width 300ms ease, height 300ms ease, opacity 200ms ease;
+}
+
+.cursor-layer.is-visible .cursor-dot,
+.cursor-layer.is-visible .cursor-ring {
   opacity: 1;
 }
 
+.cursor-layer.is-hovering .cursor-ring {
+  width: 44px;
+  height: 44px;
+}
+
 @media (pointer: coarse), (hover: none), (prefers-reduced-motion: reduce) {
-  .cursor-follower {
+  .cursor-layer {
     display: none;
   }
 }

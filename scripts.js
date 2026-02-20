@@ -1096,60 +1096,120 @@ const setupCursorFollower = () => {
     return () => {};
   }
 
-  const cursor = document.createElement("div");
-  cursor.className = "cursor-follower";
-  cursor.setAttribute("aria-hidden", "true");
-  document.body.appendChild(cursor);
+  const DOT_SMOOTHNESS = 0.2;
+  const BORDER_DOT_SMOOTHNESS = 0.1;
+  const INTERACTIVE_SELECTOR = "a, button, img, input, textarea, select";
 
-  let currentX = window.innerWidth * 0.5;
-  let currentY = window.innerHeight * 0.5;
-  let targetX = currentX;
-  let targetY = currentY;
-  let frameId = null;
-  const ease = 0.18;
+  const layer = document.createElement("div");
+  layer.className = "cursor-layer";
+  layer.setAttribute("aria-hidden", "true");
 
-  const render = () => {
-    frameId = null;
-    currentX += (targetX - currentX) * ease;
-    currentY += (targetY - currentY) * ease;
-    cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+  const dot = document.createElement("div");
+  dot.className = "cursor-dot";
 
-    if (Math.abs(targetX - currentX) > 0.1 || Math.abs(targetY - currentY) > 0.1) {
-      frameId = requestAnimationFrame(render);
+  const borderDot = document.createElement("div");
+  borderDot.className = "cursor-ring";
+
+  layer.appendChild(dot);
+  layer.appendChild(borderDot);
+  document.body.appendChild(layer);
+
+  const centerX = window.innerWidth * 0.5;
+  const centerY = window.innerHeight * 0.5;
+  const mousePosition = { x: centerX, y: centerY };
+  const dotPosition = { x: centerX, y: centerY };
+  const borderDotPosition = { x: centerX, y: centerY };
+
+  let isVisible = false;
+  let isHovering = false;
+  let animationId = null;
+
+  const lerp = (start, end, factor) => start + (end - start) * factor;
+
+  const setHoverState = (nextState) => {
+    if (isHovering === nextState) {
+      return;
+    }
+    isHovering = nextState;
+    layer.classList.toggle("is-hovering", isHovering);
+  };
+
+  const syncPositions = () => {
+    dot.style.transform = `translate3d(${dotPosition.x}px, ${dotPosition.y}px, 0) translate(-50%, -50%)`;
+    borderDot.style.transform = `translate3d(${borderDotPosition.x}px, ${borderDotPosition.y}px, 0) translate(-50%, -50%)`;
+  };
+
+  const animate = () => {
+    dotPosition.x = lerp(dotPosition.x, mousePosition.x, DOT_SMOOTHNESS);
+    dotPosition.y = lerp(dotPosition.y, mousePosition.y, DOT_SMOOTHNESS);
+    borderDotPosition.x = lerp(borderDotPosition.x, mousePosition.x, BORDER_DOT_SMOOTHNESS);
+    borderDotPosition.y = lerp(borderDotPosition.y, mousePosition.y, BORDER_DOT_SMOOTHNESS);
+    syncPositions();
+    animationId = requestAnimationFrame(animate);
+  };
+
+  const onMouseMove = (event) => {
+    mousePosition.x = event.clientX;
+    mousePosition.y = event.clientY;
+    if (!isVisible) {
+      isVisible = true;
+      layer.classList.add("is-visible");
     }
   };
 
-  const handlePointerMove = (event) => {
-    targetX = event.clientX;
-    targetY = event.clientY;
-    cursor.classList.add("is-visible");
-    if (frameId === null) {
-      frameId = requestAnimationFrame(render);
+  const onPointerOver = (event) => {
+    if (!(event.target instanceof Element)) {
+      return;
+    }
+    if (event.target.closest(INTERACTIVE_SELECTOR)) {
+      setHoverState(true);
     }
   };
 
-  const handlePointerLeave = () => {
-    cursor.classList.remove("is-visible");
+  const onPointerOut = (event) => {
+    if (!(event.target instanceof Element)) {
+      return;
+    }
+    if (!event.target.closest(INTERACTIVE_SELECTOR)) {
+      return;
+    }
+    if (event.relatedTarget instanceof Element && event.relatedTarget.closest(INTERACTIVE_SELECTOR)) {
+      return;
+    }
+    setHoverState(false);
   };
 
-  window.addEventListener("pointermove", handlePointerMove);
-  window.addEventListener("blur", handlePointerLeave);
+  const onPointerLeaveViewport = () => {
+    layer.classList.remove("is-visible");
+    isVisible = false;
+    setHoverState(false);
+  };
+
+  syncPositions();
+  animationId = requestAnimationFrame(animate);
 
   const pointerLeaveTarget = document.body;
+  window.addEventListener("mousemove", onMouseMove, { passive: true });
+  document.addEventListener("mouseover", onPointerOver);
+  document.addEventListener("mouseout", onPointerOut);
+  window.addEventListener("blur", onPointerLeaveViewport);
   if (pointerLeaveTarget) {
-    pointerLeaveTarget.addEventListener("pointerleave", handlePointerLeave);
+    pointerLeaveTarget.addEventListener("mouseleave", onPointerLeaveViewport);
   }
 
   return () => {
-    window.removeEventListener("pointermove", handlePointerMove);
-    window.removeEventListener("blur", handlePointerLeave);
+    window.removeEventListener("mousemove", onMouseMove);
+    document.removeEventListener("mouseover", onPointerOver);
+    document.removeEventListener("mouseout", onPointerOut);
+    window.removeEventListener("blur", onPointerLeaveViewport);
     if (pointerLeaveTarget) {
-      pointerLeaveTarget.removeEventListener("pointerleave", handlePointerLeave);
+      pointerLeaveTarget.removeEventListener("mouseleave", onPointerLeaveViewport);
     }
-    if (frameId !== null) {
-      cancelAnimationFrame(frameId);
+    if (animationId !== null) {
+      cancelAnimationFrame(animationId);
+      animationId = null;
     }
-    cursor.remove();
+    layer.remove();
   };
 };
 
