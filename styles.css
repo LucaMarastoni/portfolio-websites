@@ -1379,7 +1379,6 @@ html.bg-fallback body::after {
   .crm-feature-card,
   .crm-module-card,
   .crm-page-cta,
-  .copy-toast,
   .header,
   .nav,
   .client,
@@ -2805,80 +2804,12 @@ html.bg-fallback body::after {
   max-width: 60ch;
 }
 
-.contact-metrics {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-}
-
-.contact-metrics li {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.45rem;
-  padding: 0.45rem 0.75rem;
-  border-radius: 999px;
-  border: 1px solid rgba(148, 198, 255, 0.26);
-  background: rgba(8, 13, 24, 0.72);
-  box-shadow: inset 0 0 0 1px rgba(46, 230, 198, 0.06);
-}
-
-.contact-metrics strong {
-  font-size: 0.92rem;
-  color: rgba(236, 241, 252, 0.96);
-  letter-spacing: 0.02em;
-}
-
-.contact-metrics span {
-  font-size: 0.75rem;
-  color: rgba(232, 236, 245, 0.72);
-}
-
-.contact-hints {
-  margin-top: 0.4rem;
-  display: grid;
-  gap: 0.6rem;
-  padding: 0.85rem 0.95rem;
-  border-radius: 12px;
-  border: 1px solid rgba(147, 195, 255, 0.16);
-  background: rgba(8, 12, 22, 0.52);
-}
-
 .contact-title {
   margin: 0;
   font-size: 0.75rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(232, 236, 245, 0.65);
-}
-
-.contact-checklist {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 0.45rem;
-  color: rgba(232, 236, 245, 0.75);
-  font-size: 0.92rem;
-}
-
-.contact-checklist li {
-  display: flex;
-  gap: 0.5rem;
-  align-items: flex-start;
-}
-
-.contact-checklist li::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  margin-top: 0.35rem;
-  border-radius: 50%;
-  background: var(--accent-solid);
-  opacity: 0.7;
-  flex-shrink: 0;
 }
 
 .contact-card .cta-actions {
@@ -2903,12 +2834,6 @@ html.bg-fallback body::after {
 
 .contact-card .cta-contact {
   gap: 0.8rem;
-}
-
-.cta-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
 }
 
 .cta-link {
@@ -2979,54 +2904,6 @@ html.bg-fallback body::after {
   100% {
     transform: translate3d(-6%, 6%, 0) scale(0.98);
   }
-}
-
-.copy-btn {
-  border: 1px solid rgba(123, 103, 255, 0.3);
-  background: rgba(18, 24, 40, 0.8);
-  color: rgba(232, 236, 245, 0.9);
-  border-radius: 999px;
-  padding: 0.5rem 0.9rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: border-color var(--transition), transform var(--transition), color var(--transition);
-}
-
-.copy-btn:hover,
-.copy-btn:focus-visible {
-  border-color: rgba(160, 190, 255, 0.7);
-  color: var(--text);
-  transform: translateY(-1px);
-}
-
-.copy-btn:focus-visible {
-  outline: 2px solid rgba(156, 204, 255, 0.9);
-  outline-offset: 3px;
-}
-
-.copy-toast {
-  position: fixed;
-  left: 50%;
-  bottom: 2rem;
-  transform: translateX(-50%) translateY(8px);
-  background: rgba(10, 14, 24, 0.9);
-  border: 1px solid rgba(123, 103, 255, 0.35);
-  color: var(--text);
-  padding: 0.7rem 1.2rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
-  opacity: 0;
-  pointer-events: none;
-  z-index: 130;
-  transition: opacity var(--transition), transform var(--transition);
-}
-
-.copy-toast.is-visible {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
 }
 
 @media (min-width: 880px) {
@@ -3517,24 +3394,6 @@ body.modal-open {
 
   .service-card.is-open {
     transform: none;
-  }
-
-  .cta-row {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .contact-metrics {
-    gap: 0.45rem;
-  }
-
-  .contact-metrics li {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .copy-btn {
-    width: 100%;
   }
 
   .clients-grid {
@@ -4077,7 +3936,6 @@ a:focus-visible {
 
 .hero-points li::before,
 .service-list li::before,
-.contact-checklist li::before,
 .service-link,
 .service-link:focus-visible,
 .cta-label {
@@ -4085,8 +3943,7 @@ a:focus-visible {
 }
 
 .hero-points li::before,
-.service-list li::before,
-.contact-checklist li::before {
+.service-list li::before {
   background: var(--accent);
 }
 
@@ -4369,20 +4226,6 @@ a:focus-visible {
 .cta-link:focus-visible {
   border-color: rgba(46, 230, 198, 0.48);
   box-shadow: 0 18px 36px rgba(5, 10, 18, 0.42);
-}
-
-.copy-btn {
-  border-color: rgba(46, 230, 198, 0.32);
-}
-
-.copy-btn:hover,
-.copy-btn:focus-visible {
-  border-color: rgba(46, 230, 198, 0.72);
-}
-
-.copy-toast {
-  background: rgba(11, 15, 20, 0.92);
-  border-color: rgba(46, 230, 198, 0.42);
 }
 
 .footer {
