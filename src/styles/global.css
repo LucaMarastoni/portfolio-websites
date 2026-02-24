@@ -4196,9 +4196,3 @@ a:focus-visible {
   white-space: nowrap;
   border: 0;
 }
-
-/* Senza script legacy tutte le sezioni restano comunque leggibili. */
-.reveal {
-  opacity: 1 !important;
-  transform: none !important;
-}

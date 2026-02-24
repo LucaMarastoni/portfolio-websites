@@ -1,13 +1,16 @@
 import { useEffect, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import homeBodyRaw from "../content/home-body.html?raw";
+import { withBaseAssetPaths } from "../utils/legacyHtml";
 
-const homeBody = homeBodyRaw
+const homeBody = withBaseAssetPaths(
+  homeBodyRaw
   .replace(/<canvas id="stars-bg"[^>]*><\/canvas>\s*/i, "")
   .replace(/<script[^>]*src="\.\/assets\/stars-bg\.js"[^>]*><\/script>\s*/i, "")
   .replace(/<script[^>]*src="\.\/scripts\.js"[^>]*><\/script>\s*/i, "")
   .replace(/href="crm\.html"/g, 'href="#/crm"')
-  .replace(/href="#(?!\/)([^"]+)"/g, 'href="#/?section=$1"');
+  .replace(/href="#(?!\/)([^"]+)"/g, 'href="#/?section=$1"'),
+);
 
 const scrollToRequestedSection = (sectionId) => {
   const section = document.getElementById(sectionId);
