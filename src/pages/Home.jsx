@@ -74,9 +74,9 @@ export default function Home() {
               as="span"
               className="text-type-rotator"
               text={["WEB", "DIGITAL", "CRM", "ADS", "GROWTH"]}
-              typingSpeed={70}
-              deletingSpeed={45}
-              pauseDuration={1300}
+              typingSpeed={72}
+              deletingSpeed={52}
+              pauseDuration={1400}
               showCursor
               cursorCharacter="_"
               cursorBlinkDuration={0.55}

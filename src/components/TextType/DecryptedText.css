@@ -3,6 +3,12 @@
   align-items: baseline;
 }
 
+.hero-title .text-type-slot {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-start;
+}
+
 .hero-title .decrypted-rotator {
   color: #ffffff;
   text-shadow: 0 16px 34px rgba(0, 0, 0, 0.45);
