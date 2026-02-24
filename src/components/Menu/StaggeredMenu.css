@@ -304,3 +304,67 @@
     right: 0;
   }
 }
+
+@media (max-width: 720px) {
+  .staggered-menu-header {
+    justify-content: space-between;
+    padding: 1.05rem 1rem;
+  }
+
+  .sm-logo {
+    position: static;
+    left: auto;
+    transform: none;
+    max-width: calc(100% - 108px);
+    justify-content: flex-start;
+  }
+
+  .sm-logo-text {
+    white-space: pre-line;
+    text-align: left;
+    line-height: 1.12;
+    font-size: clamp(0.58rem, 2.6vw, 0.76rem);
+    letter-spacing: 0.06em;
+  }
+
+  .sm-toggle {
+    margin-left: auto;
+  }
+
+  .sm-panel-item {
+    font-size: clamp(1.72rem, 9vw, 2.45rem);
+    padding-left: 2.2rem;
+    padding-right: 0.35rem;
+  }
+
+  .sm-panel-list[data-numbering] .sm-panel-item::after {
+    left: 0;
+    right: auto;
+    top: 0.22em;
+    width: 1.7rem;
+    text-align: left;
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .sm-logo {
+    max-width: calc(100% - 98px);
+  }
+
+  .sm-logo-text {
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
+  .sm-panel-item {
+    font-size: clamp(1.58rem, 9.6vw, 2.1rem);
+    padding-left: 1.95rem;
+  }
+
+  .sm-panel-list[data-numbering] .sm-panel-item::after {
+    top: 0.26em;
+    width: 1.5rem;
+    font-size: 0.68rem;
+  }
+}

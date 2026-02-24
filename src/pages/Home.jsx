@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
+import ProcessScrollTriggered from "../components/Process/ProcessScrollTriggered";
 import RotatingText from "../components/TextType/RotatingText";
+import ScrollReveal from "../components/ScrollReveal/ScrollReveal";
 import homeBodyRaw from "../content/home-body.html?raw";
 import { withBaseAssetPaths } from "../utils/legacyHtml";
 
@@ -41,6 +43,8 @@ const scrollToRequestedSection = (sectionId) => {
 export default function Home() {
   const location = useLocation();
   const [titleTextMount, setTitleTextMount] = useState(null);
+  const [subtitleRevealMount, setSubtitleRevealMount] = useState(null);
+  const [processScrollMount, setProcessScrollMount] = useState(null);
 
   const html = useMemo(() => homeBody, []);
 
@@ -63,6 +67,8 @@ export default function Home() {
 
   useEffect(() => {
     setTitleTextMount(document.getElementById("hero-texttype-root"));
+    setSubtitleRevealMount(document.getElementById("hero-scroll-reveal-root"));
+    setProcessScrollMount(document.getElementById("process-scroll-triggered-root"));
   }, [html, location.pathname]);
 
   return (
@@ -85,6 +91,28 @@ export default function Home() {
             />,
             titleTextMount,
           )
+        : null}
+      {subtitleRevealMount
+        ? createPortal(
+            <ScrollReveal
+              containerClassName="hero-scroll-reveal"
+              textClassName="hero-scroll-reveal-text"
+              baseOpacity={0.15}
+              enableBlur
+              baseRotation={2}
+              blurStrength={3}
+              rotationStart="top 72%"
+              rotationEnd="top 38%"
+              wordAnimationStart="top 72%"
+              wordAnimationEnd="top 38%"
+            >
+              Costruiamo sistemi digitali, siti e CRM su misura, insieme a campagne Google Ads orientate ai contatti qualificati, per trasformare traffico e processi in risultati concreti, misurabili e sostenibili nel tempo.
+            </ScrollReveal>,
+            subtitleRevealMount,
+          )
+        : null}
+      {processScrollMount
+        ? createPortal(<ProcessScrollTriggered />, processScrollMount)
         : null}
     </>
   );

@@ -37,13 +37,12 @@
                 <span class="static-word">AGENCY</span>
               </span>
             </h1>
-            <!-- Hero subtitle + metodo -->
-            <p class="hero-subtitle">Costruisco sistemi digitali e campagne Google Ads che portano risultati reali, non solo interfacce.</p>
+            <!-- Hero metodo -->
             <p class="hero-method">Strategia &middot; Design &middot; Sviluppo &middot; Automazione &middot; Google Ads</p>
             <!-- Hero CTA -->
             <div class="hero-cta">
               <a class="btn primary" href="#contatti">Iniziamo oggi</a>
-              <a class="btn outline" href="#progetti">Scopri i progetti</a>
+              <a class="btn outline btn-glass" href="#progetti">Scopri i progetti</a>
             </div>
             <button class="scroll-indicator" type="button" aria-label="Scorri verso il basso" data-scroll-target="#services">
               <span class="scroll-indicator-mouse" aria-hidden="true">
@@ -51,6 +50,7 @@
               </span>
               <span class="scroll-indicator-chevron" aria-hidden="true"></span>
             </button>
+            <div id="hero-scroll-reveal-root" class="hero-scroll-reveal-slot"></div>
           </div>
         </section>
 
@@ -58,68 +58,26 @@
         <section id="services" class="section section-alt services-section">
           <div class="section-heading reveal">
             <p class="eyebrow">Servizi</p>
-            <h2 class="headline-animated">Cosa posso costruire per te</h2>
+            <h2 class="headline-animated">Cosa possiamo costruire per te</h2>
             <p class="services-intro">Soluzioni su misura per prodotto digitale, operatività interna e acquisizione clienti.</p>
           </div>
-          <div class="services-grid">
-            <article class="service-card accent-a reveal">
-              <div class="service-meta">
-                <p class="service-kicker">01 / acquisizione</p>
-                <span class="service-pulse" aria-hidden="true"></span>
-              </div>
-              <div class="service-header">
-                <h3>Siti e landing orientati al contatto</h3>
-                <button
-                  class="service-toggle"
-                  type="button"
-                  aria-expanded="false"
-                  aria-controls="service-details-1"
-                >
-                  Dettagli
-                </button>
-              </div>
-              <p class="service-lead">Pagine veloci, SEO tecnica base e CTA che guidano l'azione.</p>
-              <div class="service-details" id="service-details-1">
-                <ul class="service-list">
-                  <li>Performance front-end: pagine rapide</li>
-                  <li>SEO tecnica base: pagine indicizzabili</li>
-                  <li>Eventi e conversioni: dati tracciati</li>
-                  <li>Funnel essenziale: richieste utili</li>
+          <div class="services-grid services-grid--simple">
+            <article class="service-simple-card reveal">
+              <div class="service-simple-details">
+                <p class="service-simple-title">Siti e landing orientati al contatto</p>
+                <p class="service-simple-lead">Sviluppo pagine chiare e orientate alla conversione.</p>
+                <ul class="service-simple-points" aria-label="Dettagli servizio siti e landing">
+                  <li><strong>Performance e SEO tecnica:</strong> base solida per visibilita e caricamenti rapidi.</li>
+                  <li><strong>Struttura persuasiva:</strong> sezioni progettate per guidare la richiesta di contatto.</li>
+                  <li><strong>Tracking eventi:</strong> dati puliti per capire cosa converte davvero.</li>
                 </ul>
-                <a class="service-link" href="#project-albatros">Vedi case study</a>
               </div>
+              <a class="service-simple-button" href="#project-albatros" aria-label="Vedi case study siti e landing">Apri caso</a>
             </article>
-            <article class="service-card accent-b reveal">
-              <div class="service-meta">
-                <p class="service-kicker">02 / operativita</p>
-                <span class="service-pulse" aria-hidden="true"></span>
-              </div>
-              <div class="service-header">
-                <h3>CRM su misura per processi reali</h3>
-                <button
-                  class="service-toggle"
-                  type="button"
-                  aria-expanded="false"
-                  aria-controls="service-details-2"
-                >
-                  Dettagli
-                </button>
-              </div>
-              <p class="service-lead">Automizzi attività ripetitive e dai al team un flusso guidato.</p>
-              <div class="service-details" id="service-details-2">
-                <ul class="service-list">
-                  <li>Login e ruoli: accessi controllati</li>
-                  <li>Workflow guidati: meno passaggi</li>
-                  <li>Report leggibili: decisioni rapide</li>
-                  <li>Dati centralizzati: meno errori</li>
-                </ul>
-                <a class="service-link" href="#project-piuma">Vedi case study</a>
-              </div>
-            </article>
-            <article class="service-card service-card--ads accent-c reveal">
-              <div class="service-meta">
-                <p class="service-kicker">03 / advertising</p>
-                <div class="google-badge" aria-label="Google Ads Partner" role="img">
+
+            <article class="service-simple-card service-simple-card--ads reveal">
+              <div class="service-simple-details">
+                <div class="google-badge" aria-label="Google Ads Certified" role="img">
                   <img
                     src="./image/google-search-certified.png"
                     alt=""
@@ -128,82 +86,40 @@
                     decoding="async"
                   />
                 </div>
-              </div>
-              <div class="service-header">
-                <h3>Google Ads con focus sui lead utili</h3>
-                <button
-                  class="service-toggle"
-                  type="button"
-                  aria-expanded="false"
-                  aria-controls="service-details-3"
-                >
-                  Dettagli
-                </button>
-              </div>
-              <p class="service-lead">Campagne Search e Local con obiettivi chiari e misurabili.</p>
-              <div class="service-details" id="service-details-3">
-                <ul class="service-list">
-                  <li>Setup conversioni: tracking affidabile</li>
-                  <li>Keyword + annunci: traffico coerente</li>
-                  <li>CPL/CPA/ROAS: budget più efficiente</li>
-                  <li>Report leggibili: next step chiari</li>
+                <p class="service-simple-title">Google Ads con focus sui lead utili</p>
+                <p class="service-simple-lead">Impostiamo campagne Search e Local con obiettivi chiari.</p>
+                <ul class="service-simple-points" aria-label="Dettagli servizio Google Ads">
+                  <li><strong>Keyword e annunci:</strong> targeting allineato al servizio e alle intenzioni reali.</li>
+                  <li><strong>Misurazione affidabile:</strong> conversioni tracciate e report leggibili.</li>
+                  <li><strong>Ottimizzazione continua:</strong> budget gestito su cio che porta lead pertinenti.</li>
                 </ul>
-                <a class="service-link" href="#project-pizzaparty">Vedi case study</a>
               </div>
+              <a class="service-simple-button" href="#project-pizzaparty" aria-label="Vedi case study Google Ads">Apri caso</a>
+            </article>
+
+            <article class="service-simple-card reveal">
+              <div class="service-simple-details">
+                <p class="service-simple-title">CRM su misura per processi reali</p>
+                <p class="service-simple-lead">Creiamo CRM custom su misura del tuo flusso operativo.</p>
+                <ul class="service-simple-points" aria-label="Dettagli servizio CRM">
+                  <li><strong>Pipeline e task:</strong> gestione commerciale in un unico pannello.</li>
+                  <li><strong>Automazioni utili:</strong> meno lavoro manuale e follow-up piu coerenti.</li>
+                  <li><strong>Dashboard operative:</strong> controllo rapido di stato, priorita e prossime azioni.</li>
+                </ul>
+              </div>
+              <a class="service-simple-button" href="#project-piuma" aria-label="Vedi case study CRM">Apri caso</a>
             </article>
           </div>
-          <p class="service-boundaries">Niente template: lavoro su misura, con tempi chiari e manutenzione se serve.</p>
         </section>
 
         <!-- Sezione Metodo aggiornata -->
         <section id="process" class="section section-alt">
           <div class="section-heading reveal">
             <p class="eyebrow">Metodo</p>
-            <h2 class="headline-animated">Come lavoro</h2>
+            <h2 class="headline-animated">Come lavoriamo</h2>
             <p class="process-intro">Tre step chiari, tempi definiti e ottimizzazione continua su prodotto e acquisizione.</p>
           </div>
-          <div class="timeline">
-            <!-- Progress rail -->
-            <div class="timeline-rail" aria-hidden="true">
-              <span class="timeline-rail-base"></span>
-              <span class="timeline-rail-active" id="timeline-progress"></span>
-            </div>
-            <div class="timeline-item reveal" tabindex="0">
-              <span class="step">01 - Kickoff</span>
-              <div>
-                <h3>Analisi e direzione</h3>
-                <p>In 60 minuti definiamo cosa fare, in che ordine e con che tempi.</p>
-                <p class="step-output">Output: scope e piano condiviso.</p>
-              </div>
-            </div>
-            <div class="timeline-item reveal" tabindex="0">
-              <span class="step">02 - Esecuzione</span>
-              <div>
-                <h3>Condivisione e feedback</h3>
-                <p>
-                  Workspace condiviso
-                  <span class="workspace-logos" role="group" aria-label="Notion e Trello">
-                    <span class="workspace-logo">
-                      <img src="./image/notion.png" alt="Notion" loading="lazy" decoding="async" />
-                    </span>
-                    <span class="workspace-logo">
-                      <img src="./image/trello.png" alt="Trello" loading="lazy" decoding="async" />
-                    </span>
-                  </span>
-                  + allineamento settimanale su priorità e performance.
-                </p>
-                <p class="step-output">Output: avanzamento visibile, test continui e decisioni rapide.</p>
-              </div>
-            </div>
-            <div class="timeline-item reveal" tabindex="0">
-              <span class="step">03 - Consegna e supporto</span>
-              <div>
-                <h3>Lancio assistito</h3>
-                <p>Consegna con verifica finale insieme, poi supporto post-lancio e ottimizzazione KPI.</p>
-                <p class="step-output">Output: rilascio stabile, monitoraggio e ottimizzazione continua.</p>
-              </div>
-            </div>
-          </div>
+          <div id="process-scroll-triggered-root" class="process-scroll-triggered-slot"></div>
         </section>
 
         <span id="progetti" class="anchor-target" aria-hidden="true"></span>
@@ -619,7 +535,7 @@
             <div class="cta-content">
               <p class="contact-kicker">Contatti</p>
               <h2 class="headline-animated">Hai un progetto concreto? Parliamone.</h2>
-              <p class="contact-lead">Niente form infiniti o call a vuoto: scrivimi obiettivo, contesto e tempistiche. Ti rispondo con una direzione chiara su sito, CRM e campagne Google Ads.</p>
+              <p class="contact-lead">Niente form infiniti o call a vuoto: scrivici obiettivo, contesto e tempistiche. Ti rispondiamo con una direzione chiara su sito, CRM e campagne Google Ads.</p>
             </div>
             <div class="cta-actions">
               <p class="contact-title">Canale diretto</p>
@@ -646,7 +562,7 @@
         <!-- Collaborazioni statiche: loghi -->
         <section class="section collab-section">
           <div class="section-heading reveal">
-            <p class="eyebrow">Hanno lavorato con me</p>
+            <p class="eyebrow">Hanno lavorato con noi</p>
             <p class="collab-intro">Progetti reali, non loghi messi in vetrina.</p>
           </div>
           <div class="clients-grid">
@@ -784,7 +700,7 @@
           <p>Il titolare del trattamento è Luca Marastoni.</p>
           <p>Per qualsiasi richiesta relativa alla privacy puoi scrivere a: <a href="mailto:marastoni311@gmail.com">marastoni311@gmail.com</a>.</p>
           <h3>Tipologia di sito</h3>
-          <p>Questo sito è una vetrina informativa e portfolio personale, realizzato per presentare progetti, competenze e contatti professionali.</p>
+          <p>Questo sito è una vetrina informativa e portfolio professionale del nostro team, realizzato per presentare progetti, competenze e contatti professionali.</p>
           <h3>Dati personali trattati</h3>
           <p>Questo sito non raccoglie dati personali in modo automatico.</p>
           <p>Non sono presenti form di contatto, sistemi di tracciamento o strumenti di analisi.</p>
