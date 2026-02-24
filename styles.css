@@ -1159,6 +1159,13 @@ html.bg-fallback body::after {
   animation: servicePulse 2.9s ease-out infinite;
 }
 
+.service-badge-rosette {
+  width: 54px;
+  height: auto;
+  flex-shrink: 0;
+  filter: drop-shadow(0 6px 14px rgba(5, 10, 18, 0.4));
+}
+
 .service-header {
   display: flex;
   align-items: flex-start;
@@ -3382,6 +3389,10 @@ body.modal-open {
     padding: 1.3rem;
   }
 
+  .service-badge-rosette {
+    width: 46px;
+  }
+
   .service-toggle {
     display: inline-flex;
   }
@@ -3394,7 +3405,7 @@ body.modal-open {
   }
 
   .service-card.is-open .service-details {
-    max-height: 420px;
+    max-height: 760px;
     opacity: 1;
     transform: translateY(0);
   }
@@ -3477,13 +3488,19 @@ body.modal-open {
   }
 
   .service-card.is-open .service-details {
-    max-height: 420px;
+    max-height: 760px;
     opacity: 1;
     transform: translateY(0);
   }
 
   .service-card.is-open {
     transform: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .service-badge-rosette {
+    width: 40px;
   }
 }
 
