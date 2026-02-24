@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
-import TextType from "../components/TextType/TextType";
+import RotatingText from "../components/TextType/RotatingText";
 import homeBodyRaw from "../content/home-body.html?raw";
 import { withBaseAssetPaths } from "../utils/legacyHtml";
 
@@ -70,17 +70,18 @@ export default function Home() {
       <div dangerouslySetInnerHTML={{ __html: html }} />
       {titleTextMount
         ? createPortal(
-            <TextType
-              as="span"
-              className="text-type-rotator"
-              text={["WEB", "DIGITAL", "CRM", "ADS", "GROWTH"]}
-              typingSpeed={72}
-              deletingSpeed={52}
-              pauseDuration={1400}
-              showCursor
-              cursorCharacter="_"
-              cursorBlinkDuration={0.55}
-              variableSpeed={false}
+            <RotatingText
+              texts={["WEB", "DIGITAL", "CRM", "ADS", "GROWTH"]}
+              mainClassName="hero-rotating-text"
+              splitLevelClassName="hero-rotating-word"
+              elementLevelClassName="hero-rotating-char"
+              staggerFrom="last"
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.02}
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={2200}
             />,
             titleTextMount,
           )
