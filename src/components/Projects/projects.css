@@ -43,13 +43,13 @@
 .projects-section__header h2 {
   margin: 0;
   font-size: clamp(2rem, 3vw, 2.8rem);
-  color: #f2f6ff;
+  color: #f5f5f5;
   text-shadow: 0 16px 30px rgba(7, 13, 24, 0.5);
 }
 
 .projects-section__subtitle {
   margin: 1rem 0 0;
-  color: rgba(214, 226, 246, 0.78);
+  color: rgba(245, 245, 245, 0.78);
   line-height: 1.72;
 }
 
@@ -77,7 +77,7 @@
 .projects-filter__button {
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(12, 18, 31, 0.6);
-  color: #e7eefc;
+  color: #f5f5f5;
   border-radius: 999px;
   padding: 0.5rem 0.95rem;
   font-size: 0.84rem;
@@ -88,14 +88,14 @@
 }
 
 .projects-filter__button:hover {
-  border-color: rgba(46, 230, 198, 0.42);
-  color: #e9fffa;
+  border-color: rgba(255, 255, 255, 0.42);
+  color: #f5f5f5;
 }
 
 .projects-filter__button.is-active {
   color: #07131d;
-  border-color: rgba(46, 230, 198, 0.76);
-  background: linear-gradient(135deg, rgba(46, 230, 198, 0.95), rgba(75, 219, 231, 0.82));
+  border-color: rgba(255, 255, 255, 0.76);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(230, 230, 230, 0.82));
 }
 
 .featured-project {
@@ -114,10 +114,10 @@
 
 .featured-project:hover {
   transform: translateY(-4px);
-  border-color: rgba(46, 230, 198, 0.44);
+  border-color: rgba(255, 255, 255, 0.44);
   box-shadow:
     0 28px 56px rgba(4, 8, 15, 0.56),
-    0 0 26px rgba(46, 230, 198, 0.16);
+    0 0 26px rgba(255, 255, 255, 0.16);
 }
 
 .featured-project__media-wrap {
@@ -151,9 +151,9 @@
   margin: 0;
   padding: 0.3rem 0.75rem;
   border-radius: 999px;
-  background: rgba(46, 230, 198, 0.15);
-  border: 1px solid rgba(46, 230, 198, 0.42);
-  color: #9df8ec;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  color: #f5f5f5;
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -161,13 +161,13 @@
 
 .featured-project__content h3 {
   margin: 0;
-  color: #f6faff;
+  color: #f5f5f5;
   font-size: clamp(1.5rem, 2.6vw, 1.9rem);
 }
 
 .featured-project__description {
   margin: 0;
-  color: rgba(218, 230, 247, 0.8);
+  color: rgba(245, 245, 245, 0.8);
   line-height: 1.72;
 }
 
@@ -185,7 +185,7 @@
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.13);
   background: rgba(8, 14, 24, 0.74);
-  color: rgba(226, 236, 250, 0.9);
+  color: rgba(245, 245, 245, 0.9);
   font-size: 0.78rem;
 }
 
@@ -194,14 +194,14 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.45rem;
-  color: rgba(223, 236, 255, 0.84);
+  color: rgba(245, 245, 245, 0.84);
   font-size: 0.92rem;
   line-height: 1.6;
 }
 
 .featured-project__result span {
   font-weight: 600;
-  color: #9df8ec;
+  color: #f5f5f5;
 }
 
 .featured-project__actions {
@@ -228,7 +228,7 @@
 
 .projects-btn--primary {
   color: #08141f;
-  background: linear-gradient(135deg, rgba(46, 230, 198, 0.95), rgba(99, 224, 255, 0.87));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(236, 236, 236, 0.87));
   box-shadow: 0 14px 28px rgba(13, 64, 68, 0.34);
 }
 
@@ -238,13 +238,13 @@
 
 .projects-btn--ghost {
   border-color: rgba(255, 255, 255, 0.2);
-  color: rgba(227, 237, 251, 0.95);
+  color: rgba(245, 245, 245, 0.95);
   background: rgba(12, 18, 31, 0.44);
 }
 
 .projects-btn--ghost:hover {
-  border-color: rgba(46, 230, 198, 0.5);
-  color: #ecfffb;
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #f5f5f5;
 }
 
 .projects-grid {
@@ -267,10 +267,10 @@
 
 .project-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(46, 230, 198, 0.4);
+  border-color: rgba(255, 255, 255, 0.4);
   box-shadow:
     0 22px 42px rgba(3, 7, 14, 0.5),
-    0 0 22px rgba(46, 230, 198, 0.14);
+    0 0 22px rgba(255, 255, 255, 0.14);
 }
 
 .project-card__media-wrap {
@@ -301,7 +301,7 @@
   font-size: 0.73rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(231, 240, 255, 0.9);
+  color: rgba(245, 245, 245, 0.9);
 }
 
 .project-card__content {
@@ -314,13 +314,13 @@
 
 .project-card__content h3 {
   margin: 0;
-  color: #f6faff;
+  color: #f5f5f5;
   font-size: 1.25rem;
 }
 
 .project-card__description {
   margin: 0;
-  color: rgba(214, 226, 246, 0.78);
+  color: rgba(245, 245, 245, 0.78);
   line-height: 1.68;
 }
 
@@ -338,7 +338,7 @@
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.11);
   background: rgba(8, 14, 24, 0.62);
-  color: rgba(224, 235, 251, 0.88);
+  color: rgba(245, 245, 245, 0.88);
   font-size: 0.76rem;
 }
 
@@ -347,13 +347,13 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  color: rgba(220, 233, 252, 0.82);
+  color: rgba(245, 245, 245, 0.82);
   line-height: 1.58;
   font-size: 0.88rem;
 }
 
 .project-card__result span {
-  color: #9df8ec;
+  color: #f5f5f5;
   font-weight: 600;
 }
 
@@ -375,15 +375,15 @@
 }
 
 .project-card__cta:hover {
-  border-color: rgba(46, 230, 198, 0.48);
+  border-color: rgba(255, 255, 255, 0.48);
   background: rgba(11, 20, 31, 0.88);
-  color: #e8fffb;
+  color: #f5f5f5;
 }
 
 .projects-filter__button:focus-visible,
 .projects-btn:focus-visible,
 .project-card__cta:focus-visible {
-  outline: 2px solid rgba(46, 230, 198, 0.95);
+  outline: 2px solid rgba(255, 255, 255, 0.95);
   outline-offset: 2px;
 }
 

@@ -1,16 +1,22 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
+import TextType from "../components/TextType/TextType";
 import homeBodyRaw from "../content/home-body.html?raw";
 import { withBaseAssetPaths } from "../utils/legacyHtml";
 
 const homeBody = withBaseAssetPaths(
   homeBodyRaw
+  .replace(/<span\s+class="swap-word"[\s\S]*?<\/span>/i, '<span id="hero-texttype-root" class="text-type-slot"></span>')
   .replace(/<canvas id="stars-bg"[^>]*><\/canvas>\s*/i, "")
   .replace(/<script[^>]*src="\.\/assets\/stars-bg\.js"[^>]*><\/script>\s*/i, "")
   .replace(/<script[^>]*src="\.\/scripts\.js"[^>]*><\/script>\s*/i, "")
+  .replace(/<header class="header">[\s\S]*?<\/header>\s*/i, "")
   .replace(/href="crm\.html"/g, 'href="#/crm"')
   .replace(/href="#(?!\/)([^"]+)"/g, 'href="#/?section=$1"'),
 );
+
+const HEADER_OFFSET_PX = 72;
 
 const scrollToRequestedSection = (sectionId) => {
   const section = document.getElementById(sectionId);
@@ -18,12 +24,23 @@ const scrollToRequestedSection = (sectionId) => {
     return;
   }
 
+  const targetTop = Math.max(
+    0,
+    section.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET_PX,
+  );
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  section.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+
+  if (reduceMotion) {
+    window.scrollTo({ top: targetTop, behavior: "auto" });
+    return;
+  }
+
+  window.scrollTo({ top: targetTop, behavior: "smooth" });
 };
 
 export default function Home() {
   const location = useLocation();
+  const [titleTextMount, setTitleTextMount] = useState(null);
 
   const html = useMemo(() => homeBody, []);
 
@@ -44,5 +61,30 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [location.search]);
 
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  useEffect(() => {
+    setTitleTextMount(document.getElementById("hero-texttype-root"));
+  }, [html, location.pathname]);
+
+  return (
+    <>
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+      {titleTextMount
+        ? createPortal(
+            <TextType
+              as="span"
+              className="text-type-rotator"
+              text={["WEB", "DIGITAL", "CRM", "ADS", "GROWTH"]}
+              typingSpeed={70}
+              deletingSpeed={45}
+              pauseDuration={1300}
+              showCursor
+              cursorCharacter="_"
+              cursorBlinkDuration={0.55}
+              variableSpeed={false}
+            />,
+            titleTextMount,
+          )
+        : null}
+    </>
+  );
 }

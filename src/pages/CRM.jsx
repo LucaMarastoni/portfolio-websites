@@ -8,11 +8,14 @@ const crmBody = withBaseAssetPaths(
   .replace(/<canvas id="stars-bg"[^>]*><\/canvas>\s*/i, "")
   .replace(/<script[^>]*src="\.\/assets\/stars-bg\.js"[^>]*><\/script>\s*/i, "")
   .replace(/<script[^>]*src="\.\/scripts\.js"[^>]*><\/script>\s*/i, "")
+  .replace(/<header class="header">[\s\S]*?<\/header>\s*/i, "")
   .replace(/href="index\.html#([^"]+)"/g, 'href="#/?section=$1"')
   .replace(/href="index\.html"/g, 'href="#/"')
   .replace(/href="#(?!\/)([^"]+)"/g, 'href="#/crm?section=$1"')
   .replace(/href="crm\.html"/g, 'href="#/crm"'),
 );
+
+const HEADER_OFFSET_PX = 72;
 
 const scrollToRequestedSection = (sectionId) => {
   const section = document.getElementById(sectionId);
@@ -20,8 +23,18 @@ const scrollToRequestedSection = (sectionId) => {
     return;
   }
 
+  const targetTop = Math.max(
+    0,
+    section.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET_PX,
+  );
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  section.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+
+  if (reduceMotion) {
+    window.scrollTo({ top: targetTop, behavior: "auto" });
+    return;
+  }
+
+  window.scrollTo({ top: targetTop, behavior: "smooth" });
 };
 
 export default function CRM() {
