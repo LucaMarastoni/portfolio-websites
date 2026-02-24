@@ -4183,3 +4183,22 @@ a:focus-visible {
 .modal-backdrop {
   background: rgba(11, 15, 20, 0.78);
 }
+
+/* React + HashRouter bridge */
+.router-sr-nav {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Senza script legacy tutte le sezioni restano comunque leggibili. */
+.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
