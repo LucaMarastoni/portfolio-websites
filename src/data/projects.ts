@@ -73,20 +73,6 @@ export const projects: Project[] = [
     highlight: "Percorso orientato alla prenotazione con menu e contatti chiari.",
   },
   {
-    id: "project-piuma",
-    title: "Piuma | CRM per la ristorazione",
-    category: "Software",
-    cover: withBase("image/software.png"),
-    coverAlt: "Anteprima CRM Piuma per pizzerie take-away e delivery",
-    description:
-      "Gestionale cassa per take-away e delivery con ordini rapidi, extra ingredienti e coordinamento rider.",
-    tags: ["Ordini e comande", "Gestione ingredienti", "Tracking rider"],
-    ctaLabel: "Richiedi info",
-    caseStudyHref: "#contact",
-    highlight: "Flussi guidati per ordini e delivery planner anche offline.",
-    featured: true,
-  },
-  {
     id: "project-miclab",
     title: "MICLAB",
     category: "Intrattenimento",
@@ -143,5 +129,19 @@ export const projects: Project[] = [
     url: "https://lucamarastoni.github.io/Vaulted/",
     caseStudyHref: "#case-study-vaulted",
     highlight: "Lookbook editoriale con percorso diretto verso l'acquisto.",
+  },
+  {
+    id: "project-piuma",
+    title: "Piuma | CRM per la ristorazione",
+    category: "Software",
+    cover: withBase("image/software.png"),
+    coverAlt: "Anteprima CRM Piuma per pizzerie take-away e delivery",
+    description:
+      "Gestionale cassa per take-away e delivery con ordini rapidi, extra ingredienti e coordinamento rider.",
+    tags: ["Ordini e comande", "Gestione ingredienti", "Tracking rider"],
+    ctaLabel: "Richiedi info",
+    caseStudyHref: "#contact",
+    highlight: "Flussi guidati per ordini e delivery planner anche offline.",
+    featured: true,
   },
 ];
