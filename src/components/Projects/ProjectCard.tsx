@@ -24,7 +24,7 @@ export function ProjectCard({ project, playPreview = false }: ProjectCardProps) 
             muted
             playsInline
             loop
-            preload="auto"
+            preload="metadata"
             poster={previewImage}
             aria-hidden="true"
           >

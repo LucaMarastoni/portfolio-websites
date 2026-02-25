@@ -36,6 +36,7 @@ export const projects: Project[] = [
     category: "Turismo",
     cover: withBase("logos/albatros_logo.png"),
     previewVideo: withBase("video/Albatros.mp4"),
+    previewPoster: withBase("image/albatros.png"),
     coverAlt: "Brand Albatros Tropea Noleggio",
     description:
       "Sito per noleggio gommoni ed escursioni a Tropea con booking online e gestione richieste semplificata.",
@@ -50,6 +51,7 @@ export const projects: Project[] = [
     category: "Ristorazione",
     cover: withBase("logos/pizzaparty_logo.png"),
     previewVideo: withBase("video/pizzapartyvr.mp4"),
+    previewPoster: withBase("image/pizzaparty.png"),
     coverAlt: "Brand Pizza Party VR",
     description:
       "Sito e funnel locale per pizzeria con menu digitale, prenotazioni integrate e campagne Google Ads.",
@@ -64,6 +66,7 @@ export const projects: Project[] = [
     category: "Ristorazione",
     cover: withBase("logos/terrasushi_logo.png"),
     previewVideo: withBase("video/terrasushi.mp4"),
+    previewPoster: withBase("image/terrasushi.png"),
     coverAlt: "Brand Terra Sushi",
     description:
       "Sito vetrina orientato alla prenotazione con menu, location e contatti chiari.",
@@ -93,7 +96,7 @@ export const projects: Project[] = [
     category: "Community",
     cover: withBase("logos/37100club_logo.jpeg"),
     previewVideo: withBase("video/37100club.mp4"),
-    previewPoster: withBase("logos/37100club_logo.jpeg"),
+    previewPoster: withBase("image/37100club.png"),
     coverAlt: "Brand 37100 Club",
     description:
       "Hub community con eventi, ticketing e marketplace dell'usato in un flusso unico.",
@@ -108,6 +111,7 @@ export const projects: Project[] = [
     category: "Artigianato",
     cover: withBase("logos/martylab_logo.jpg"),
     previewVideo: withBase("video/anna.mp4"),
+    previewPoster: withBase("image/martylab.png"),
     coverAlt: "Brand Martylab",
     description:
       "Esperienza digitale per laboratorio artigianale con catalogo, gallery e richieste personalizzate.",
@@ -122,6 +126,7 @@ export const projects: Project[] = [
     category: "Streetwear",
     cover: withBase("logos/vaulted_logo.png"),
     previewVideo: withBase("video/vaulted.mp4"),
+    previewPoster: withBase("image/vaulted.png"),
     coverAlt: "Brand Vaulted",
     description:
       "Vetrina streetwear con lookbook e percorso diretto verso l'acquisto.",

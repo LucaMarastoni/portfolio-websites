@@ -296,23 +296,23 @@ export function ProjectsSection() {
   };
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 901px)");
+    const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const syncVideoPreference = () => {
-      setEnableVideoPreviews(mediaQuery.matches);
+      setEnableVideoPreviews(!reduceMotionQuery.matches);
     };
 
     syncVideoPreference();
 
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", syncVideoPreference);
+    if (typeof reduceMotionQuery.addEventListener === "function") {
+      reduceMotionQuery.addEventListener("change", syncVideoPreference);
       return () => {
-        mediaQuery.removeEventListener("change", syncVideoPreference);
+        reduceMotionQuery.removeEventListener("change", syncVideoPreference);
       };
     }
 
-    mediaQuery.addListener(syncVideoPreference);
+    reduceMotionQuery.addListener(syncVideoPreference);
     return () => {
-      mediaQuery.removeListener(syncVideoPreference);
+      reduceMotionQuery.removeListener(syncVideoPreference);
     };
   }, []);
 
