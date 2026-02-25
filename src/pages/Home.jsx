@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
-import ProcessScrollTriggered from "../components/Process/ProcessScrollTriggered";
+import ProcessCascade from "../components/ProcessCascade/ProcessCascade";
 import RotatingText from "../components/TextType/RotatingText";
 import ScrollReveal from "../components/ScrollReveal/ScrollReveal";
 import homeBodyRaw from "../content/home-body.html?raw";
@@ -44,7 +44,7 @@ export default function Home() {
   const location = useLocation();
   const [titleTextMount, setTitleTextMount] = useState(null);
   const [subtitleRevealMount, setSubtitleRevealMount] = useState(null);
-  const [processScrollMount, setProcessScrollMount] = useState(null);
+  const [processCascadeMount, setProcessCascadeMount] = useState(null);
 
   const html = useMemo(() => homeBody, []);
 
@@ -68,7 +68,7 @@ export default function Home() {
   useEffect(() => {
     setTitleTextMount(document.getElementById("hero-texttype-root"));
     setSubtitleRevealMount(document.getElementById("hero-scroll-reveal-root"));
-    setProcessScrollMount(document.getElementById("process-scroll-triggered-root"));
+    setProcessCascadeMount(document.getElementById("process-scroll-triggered-root"));
   }, [html, location.pathname]);
 
   return (
@@ -111,8 +111,8 @@ export default function Home() {
             subtitleRevealMount,
           )
         : null}
-      {processScrollMount
-        ? createPortal(<ProcessScrollTriggered />, processScrollMount)
+      {processCascadeMount
+        ? createPortal(<ProcessCascade />, processCascadeMount)
         : null}
     </>
   );

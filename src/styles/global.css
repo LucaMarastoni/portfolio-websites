@@ -144,8 +144,15 @@ body.light #stars-bg {
 
 .page-wrapper {
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   z-index: 1;
+}
+
+@supports not (overflow: clip) {
+  .page-wrapper {
+    overflow-x: hidden;
+  }
 }
 
 /* Offset content for fixed header */
@@ -3630,7 +3637,7 @@ body.modal-open {
   }
 
   #intro.section {
-    padding-top: clamp(8.5rem, 26vw, 11rem);
+    padding-top: clamp(6.4rem, 19.5vw, 8.8rem);
   }
 
   .hero {
@@ -3788,7 +3795,7 @@ body.modal-open {
   }
 
   #intro.section {
-    padding-top: clamp(10rem, 34vw, 13rem);
+    padding-top: clamp(7.4rem, 25vw, 9.6rem);
   }
 
   .hero {
