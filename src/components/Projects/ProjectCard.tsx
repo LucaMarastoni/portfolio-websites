@@ -12,15 +12,31 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const external = isExternalHref(href);
 
   return (
-    <article className="project-card">
+    <article id={project.id} className="project-card">
       <div className="project-card__media-wrap">
-        <img
-          className="project-card__media"
-          src={project.cover}
-          alt={project.coverAlt}
-          loading="lazy"
-          decoding="async"
-        />
+        {project.previewVideo ? (
+          <video
+            className="project-card__media"
+            autoPlay
+            muted
+            playsInline
+            loop
+            preload="metadata"
+            poster={project.previewPoster ?? project.cover}
+            aria-hidden="true"
+          >
+            <source src={project.previewVideo} type="video/mp4" />
+            Il tuo browser non supporta i video HTML5.
+          </video>
+        ) : (
+          <img
+            className="project-card__media"
+            src={project.cover}
+            alt={project.coverAlt}
+            loading="lazy"
+            decoding="async"
+          />
+        )}
         <span className="project-card__category">{project.category}</span>
       </div>
 

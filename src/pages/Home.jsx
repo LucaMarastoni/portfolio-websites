@@ -3,6 +3,7 @@ import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
 import ContactSection from "../components/Contact/ContactSection";
 import ProcessCascade from "../components/ProcessCascade/ProcessCascade";
+import { ProjectsSection } from "../components/Projects/ProjectsSection";
 import RotatingText from "../components/TextType/RotatingText";
 import ScrollReveal from "../components/ScrollReveal/ScrollReveal";
 import homeBodyRaw from "../content/home-body.html?raw";
@@ -45,6 +46,7 @@ export default function Home() {
   const [titleTextMount, setTitleTextMount] = useState(null);
   const [subtitleRevealMount, setSubtitleRevealMount] = useState(null);
   const [processCascadeMount, setProcessCascadeMount] = useState(null);
+  const [projectsSectionMount, setProjectsSectionMount] = useState(null);
   const [contactSectionMount, setContactSectionMount] = useState(null);
 
   const html = useMemo(() => homeBody, []);
@@ -70,6 +72,7 @@ export default function Home() {
     setTitleTextMount(document.getElementById("hero-texttype-root"));
     setSubtitleRevealMount(document.getElementById("hero-scroll-reveal-root"));
     setProcessCascadeMount(document.getElementById("process-scroll-triggered-root"));
+    setProjectsSectionMount(document.getElementById("projects-section-root"));
     setContactSectionMount(document.getElementById("contact-section-root"));
   }, [html, location.pathname]);
 
@@ -115,6 +118,9 @@ export default function Home() {
         : null}
       {processCascadeMount
         ? createPortal(<ProcessCascade />, processCascadeMount)
+        : null}
+      {projectsSectionMount
+        ? createPortal(<ProjectsSection />, projectsSectionMount)
         : null}
       {contactSectionMount
         ? createPortal(<ContactSection />, contactSectionMount)

@@ -4,19 +4,8 @@
   padding: clamp(4.5rem, 8vw, 6.75rem) clamp(1.25rem, 4vw, 2.5rem);
 }
 
-.projects-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(4, 8, 16, 0.6) 0%,
-      rgba(4, 8, 16, 0.48) 42%,
-      rgba(4, 8, 16, 0.56) 100%
-    );
+.projects-section-slot {
+  width: 100%;
 }
 
 .projects-section__inner {
@@ -229,11 +218,11 @@
 .projects-btn--primary {
   color: #08141f;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(236, 236, 236, 0.87));
-  box-shadow: 0 14px 28px rgba(13, 64, 68, 0.34);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.28);
 }
 
 .projects-btn--primary:hover {
-  background: linear-gradient(135deg, rgba(76, 237, 209, 0.97), rgba(128, 230, 255, 0.9));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(228, 228, 228, 0.92));
 }
 
 .projects-btn--ghost {
@@ -254,23 +243,64 @@
   animation: projects-fade 220ms ease;
 }
 
+.projects-load-more-wrap {
+  margin-top: clamp(1.25rem, 2.4vw, 1.8rem);
+  display: flex;
+  justify-content: center;
+}
+
+.projects-load-more {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: rgba(12, 18, 31, 0.62);
+  color: rgba(245, 245, 245, 0.96);
+  border-radius: 999px;
+  min-height: 2.7rem;
+  padding: 0.68rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 220ms ease;
+}
+
+.projects-load-more:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(12, 18, 31, 0.82);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.36);
+}
+
+.projects-load-more:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.95);
+  outline-offset: 2px;
+}
+
 .project-card {
   display: flex;
   flex-direction: column;
   border-radius: 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   overflow: hidden;
-  background: rgba(10, 16, 27, 0.86);
-  box-shadow: 0 18px 36px rgba(3, 7, 14, 0.42);
+  background: rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
   transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
 }
 
 .project-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.28);
   box-shadow:
-    0 22px 42px rgba(3, 7, 14, 0.5),
-    0 0 22px rgba(255, 255, 255, 0.14);
+    0 20px 40px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .project-card__media-wrap {
@@ -296,8 +326,8 @@
   left: 0.95rem;
   padding: 0.35rem 0.72rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(7, 13, 23, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
   font-size: 0.73rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -321,7 +351,11 @@
 .project-card__description {
   margin: 0;
   color: rgba(245, 245, 245, 0.78);
-  line-height: 1.68;
+  line-height: 1.58;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .project-card__tags {
@@ -336,8 +370,8 @@
 .project-card__tags li {
   padding: 0.2rem 0.6rem;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.11);
-  background: rgba(8, 14, 24, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: rgba(255, 255, 255, 0.06);
   color: rgba(245, 245, 245, 0.88);
   font-size: 0.76rem;
 }
@@ -365,9 +399,9 @@
   min-height: 2.6rem;
   padding: 0.6rem 1rem;
   border-radius: 0.72rem;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(12, 18, 31, 0.65);
-  color: #f2f7ff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f5f5;
   font-size: 0.88rem;
   font-weight: 600;
   text-decoration: none;
@@ -375,8 +409,8 @@
 }
 
 .project-card__cta:hover {
-  border-color: rgba(255, 255, 255, 0.48);
-  background: rgba(11, 20, 31, 0.88);
+  border-color: rgba(255, 255, 255, 0.34);
+  background: rgba(255, 255, 255, 0.14);
   color: #f5f5f5;
 }
 
@@ -435,7 +469,8 @@
   }
 
   .projects-btn,
-  .project-card__cta {
+  .project-card__cta,
+  .projects-load-more {
     width: 100%;
   }
 }
@@ -451,6 +486,7 @@
   .project-card__media,
   .projects-btn,
   .project-card__cta,
+  .projects-load-more,
   .projects-filter__button {
     transition: none;
   }
