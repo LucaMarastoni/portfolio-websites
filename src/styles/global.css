@@ -31,6 +31,7 @@ html {
   background-color: #070b12;
   color-scheme: dark;
   scroll-behavior: smooth;
+  overflow-x: clip;
   /* Sticky header offset */
   scroll-padding-top: calc(var(--header-offset) + env(safe-area-inset-top));
 }
@@ -48,6 +49,7 @@ body {
   color: var(--text-primary);
   min-height: 100vh;
   line-height: 1.72;
+  overflow-x: clip;
 }
 
 .shadergradient-background {
@@ -144,13 +146,12 @@ body.light #stars-bg {
 
 .page-wrapper {
   position: relative;
-  overflow-x: clip;
-  overflow-y: visible;
   z-index: 1;
 }
 
 @supports not (overflow: clip) {
-  .page-wrapper {
+  html,
+  body {
     overflow-x: hidden;
   }
 }
@@ -4710,4 +4711,19 @@ a,
   color: #ffffff !important;
   border: 1px solid rgba(255, 255, 255, 0.24) !important;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.34) !important;
+}
+
+/* Footer logos: force centered alignment */
+.collab-section .clients-grid {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 22px 28px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.collab-section .client {
+  flex: 0 0 auto;
 }

@@ -18,8 +18,6 @@
             <li><a href="#services">Servizi</a></li>
             <li><a href="#process">Metodo</a></li>
             <li><a href="#progetti">Progetti</a></li>
-            <li><a href="crm.html">CRM</a></li>
-            <li><a href="#contatti">Contatti</a></li>
           </ul>
         </nav>
       </header>
@@ -41,7 +39,7 @@
             <p class="hero-method">Strategia &middot; Design &middot; Sviluppo &middot; Automazione &middot; Google Ads</p>
             <!-- Hero CTA -->
             <div class="hero-cta">
-              <a class="btn primary" href="#contatti">Iniziamo oggi</a>
+              <a class="btn primary" href="#contact" aria-label="Vai alla sezione contatti">Iniziamo oggi</a>
               <a class="btn outline btn-glass" href="#progetti">Scopri i progetti</a>
             </div>
             <button class="scroll-indicator" type="button" aria-label="Scorri verso il basso" data-scroll-target="#services">
@@ -445,7 +443,7 @@
             </article>
 
             <article id="project-piuma" class="work-card featured reveal">
-              <a class="card-thumb card-link" href="crm.html" aria-label="Scopri il gestionale per pizzerie">
+              <a class="card-thumb card-link" href="#contact" aria-label="Richiedi info sul gestionale per pizzerie">
                 <img
                   class="card-media"
                   src="./image/software.png"
@@ -472,10 +470,10 @@
                 <div class="card-footer">
                   <a
                     class="btn inline"
-                    href="crm.html"
-                    aria-label="Scopri il gestionale per pizzerie"
+                    href="#contact"
+                    aria-label="Richiedi info sul gestionale per pizzerie"
                   >
-                    Scopri il progetto
+                    Richiedi info
                   </a>
                 </div>
               </div>
@@ -483,80 +481,8 @@
           </div>
         </section>
 
-        <section id="crm" class="section section-alt">
-          <div class="crm-wrapper">
-            <div class="crm-content reveal">
-              <p class="eyebrow">Software proprietario</p>
-              <h2 class="crm-headline">Piuma, il gestionale cassa intuitivo per il take-away che non può fermarsi</h2>
-              <p>
-                Piuma nasce in pizzeria: è leggero, intuitivo e ti permette di personalizzare ogni pizza, organizzare le consegne
-                e mantenere incassi e clienti sotto controllo senza abbonamenti né connessione stabile.
-              </p>
-              <ul class="crm-features">
-                <li><strong>Ordini fulminei</strong> con ingredienti aggiunti o rimossi, quantità “abbondante/poco” e comande chiare.</li>
-                <li><strong>Interfaccia ultra intuitiva</strong> con percorsi guidati, combinazioni suggerite e zero formazione lunga.</li>
-                <li><strong>Delivery sotto controllo</strong> con assegnazione rider, incassi registrati e storico consegne per ogni fattorino.</li>
-                <li><strong>Installazione unica</strong> nessun canone mensile, funzionamento offline e risorse minime richieste.</li>
-              </ul>
-              <div class="crm-actions">
-                <a class="btn primary" href="crm.html" aria-label="Scopri di più sul gestionale Piuma">Scopri di più</a>
-                <span class="crm-note">Archivio clienti rapido, software leggero offline-first e pagamento una tantum per l'installazione.</span>
-              </div>
-            </div>
-            <div class="crm-card reveal" aria-hidden="true">
-              <div class="crm-card-header">
-                <span class="crm-badge">Dati portfolio</span>
-                <h3>Risultati concreti</h3>
-              </div>
-              <div class="crm-stats">
-                <div class="crm-stat">
-                  <span class="crm-stat-value">+32%</span>
-                  <span class="crm-stat-label">Aumento medio dello scontrino in 3 mesi</span>
-                </div>
-                <div class="crm-stat">
-                  <span class="crm-stat-value">-18%</span>
-                  <span class="crm-stat-label">Tempo di attesa telefono ridotto</span>
-                </div>
-                <div class="crm-stat">
-                  <span class="crm-stat-value">3x</span>
-                  <span class="crm-stat-label">Ordini ricorrenti clienti registrati</span>
-                </div>
-              </div>
-              <p>
-                Report rapidi su ingredienti, cassieri e rider per sapere dove intervenire prima che si crei un collo di bottiglia.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <span id="contatti" class="anchor-target" aria-hidden="true"></span>
         <section id="contact" class="section">
-          <div class="cta-card contact-card reveal">
-            <div class="cta-content">
-              <p class="contact-kicker">Contatti</p>
-              <h2 class="headline-animated">Hai un progetto concreto? Parliamone.</h2>
-              <p class="contact-lead">Niente form infiniti o call a vuoto: scrivici obiettivo, contesto e tempistiche. Ti rispondiamo con una direzione chiara su sito, CRM e campagne Google Ads.</p>
-            </div>
-            <div class="cta-actions">
-              <p class="contact-title">Canale diretto</p>
-              <div class="cta-contact">
-                <a class="cta-link" href="mailto:marastoni311@gmail.com" aria-label="Scrivi una email a Luca Marastoni">
-                  <span class="cta-label">Email</span>
-                  <span class="cta-value">marastoni311@gmail.com</span>
-                </a>
-                <a
-                  class="cta-link"
-                  href="https://wa.me/393486646762"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Scrivi su WhatsApp a Luca Marastoni"
-                >
-                  <span class="cta-label">WhatsApp</span>
-                  <span class="cta-value">+39 348 664 6762</span>
-                </a>
-              </div>
-            </div>
-          </div>
+          <div id="contact-section-root" class="contact-section-slot"></div>
         </section>
 
         <!-- Collaborazioni statiche: loghi -->

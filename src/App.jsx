@@ -1,17 +1,15 @@
-import { Link, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ShaderGradientBackground } from "./components/Background/ShaderGradientBackground";
 import { LegacyScriptsLoader } from "./components/LegacyScriptsLoader";
 import StaggeredMenu from "./components/Menu/StaggeredMenu";
 import Home from "./pages/Home";
-import CRM from "./pages/CRM";
 
 const menuItems = [
   { label: "Home", ariaLabel: "Vai alla home", link: "#/" },
   { label: "Servizi", ariaLabel: "Vai alla sezione servizi", link: "#/?section=services" },
   { label: "Metodo", ariaLabel: "Vai alla sezione metodo", link: "#/?section=process" },
   { label: "Progetti", ariaLabel: "Vai alla sezione progetti", link: "#/?section=progetti" },
-  { label: "CRM", ariaLabel: "Vai alla pagina CRM", link: "#/crm" },
-  { label: "Contatti", ariaLabel: "Vai alla sezione contatti", link: "#/?section=contatti" },
+  { label: "Contatti", ariaLabel: "Vai alla sezione contatti", link: "#/?section=contact" },
 ];
 
 const socialItems = [
@@ -41,14 +39,8 @@ export default function App() {
       />
       <LegacyScriptsLoader />
 
-      <nav className="router-sr-nav" aria-label="Navigazione routing">
-        <Link to="/">Home</Link>
-        <Link to="/crm">CRM</Link>
-      </nav>
-
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/crm" element={<CRM />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

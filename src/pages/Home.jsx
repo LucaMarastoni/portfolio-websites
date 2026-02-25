@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
+import ContactSection from "../components/Contact/ContactSection";
 import ProcessCascade from "../components/ProcessCascade/ProcessCascade";
 import RotatingText from "../components/TextType/RotatingText";
 import ScrollReveal from "../components/ScrollReveal/ScrollReveal";
@@ -14,7 +15,6 @@ const homeBody = withBaseAssetPaths(
   .replace(/<script[^>]*src="\.\/assets\/stars-bg\.js"[^>]*><\/script>\s*/i, "")
   .replace(/<script[^>]*src="\.\/scripts\.js"[^>]*><\/script>\s*/i, "")
   .replace(/<header class="header">[\s\S]*?<\/header>\s*/i, "")
-  .replace(/href="crm\.html"/g, 'href="#/crm"')
   .replace(/href="#(?!\/)([^"]+)"/g, 'href="#/?section=$1"'),
 );
 
@@ -45,6 +45,7 @@ export default function Home() {
   const [titleTextMount, setTitleTextMount] = useState(null);
   const [subtitleRevealMount, setSubtitleRevealMount] = useState(null);
   const [processCascadeMount, setProcessCascadeMount] = useState(null);
+  const [contactSectionMount, setContactSectionMount] = useState(null);
 
   const html = useMemo(() => homeBody, []);
 
@@ -69,6 +70,7 @@ export default function Home() {
     setTitleTextMount(document.getElementById("hero-texttype-root"));
     setSubtitleRevealMount(document.getElementById("hero-scroll-reveal-root"));
     setProcessCascadeMount(document.getElementById("process-scroll-triggered-root"));
+    setContactSectionMount(document.getElementById("contact-section-root"));
   }, [html, location.pathname]);
 
   return (
@@ -113,6 +115,9 @@ export default function Home() {
         : null}
       {processCascadeMount
         ? createPortal(<ProcessCascade />, processCascadeMount)
+        : null}
+      {contactSectionMount
+        ? createPortal(<ContactSection />, contactSectionMount)
         : null}
     </>
   );
