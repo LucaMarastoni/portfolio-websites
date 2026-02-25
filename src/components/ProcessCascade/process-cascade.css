@@ -254,6 +254,10 @@
 }
 
 @media (max-width: 640px) {
+  .process-cascade__rail {
+    display: none;
+  }
+
   .process-cascade__card {
     padding: 1rem 0.95rem 1.05rem;
     border-radius: 14px;

@@ -5,18 +5,11 @@ type ProjectCardProps = {
 };
 
 const isExternalHref = (href?: string) => Boolean(href && /^(https?:)?\/\//.test(href));
-const toBriefText = (text: string, maxLength = 96): string => {
-  if (text.length <= maxLength) return text;
-  const shortened = text.slice(0, maxLength);
-  const cutAt = shortened.lastIndexOf(" ");
-  return `${(cutAt > 40 ? shortened.slice(0, cutAt) : shortened).trim()}...`;
-};
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const href = project.url ?? project.caseStudyHref;
   const ctaLabel = project.ctaLabel ?? (project.url ? "Visita il sito" : "Vedi progetto");
   const external = isExternalHref(href);
-  const briefDescription = toBriefText(project.description);
 
   return (
     <article id={project.id} className="project-card">
@@ -48,7 +41,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <div className="project-card__content">
         <h3>{project.title}</h3>
-        <p className="project-card__description">{briefDescription}</p>
+        <p className="project-card__description">{project.description}</p>
 
         {href ? (
           <a
