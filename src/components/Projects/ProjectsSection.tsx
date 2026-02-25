@@ -19,6 +19,7 @@ export function ProjectsSection() {
   const [activeLoopIndex, setActiveLoopIndex] = useState<number>(() =>
     projects.length > 1 ? projects.length : 0,
   );
+  const [enableVideoPreviews, setEnableVideoPreviews] = useState(false);
 
   const reelRef = useRef<HTMLDivElement | null>(null);
   const itemRefs = useRef<Record<number, HTMLDivElement | null>>({});
@@ -294,6 +295,27 @@ export function ProjectsSection() {
     return distance < 0 ? "is-far-prev" : "is-far-next";
   };
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine) and (min-width: 901px)");
+    const syncVideoPreference = () => {
+      setEnableVideoPreviews(mediaQuery.matches);
+    };
+
+    syncVideoPreference();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncVideoPreference);
+      return () => {
+        mediaQuery.removeEventListener("change", syncVideoPreference);
+      };
+    }
+
+    mediaQuery.addListener(syncVideoPreference);
+    return () => {
+      mediaQuery.removeListener(syncVideoPreference);
+    };
+  }, []);
+
   useLayoutEffect(() => {
     if (!loopedProjects.length) return;
 
@@ -438,7 +460,10 @@ export function ProjectsSection() {
                 data-canonical-index={item.canonicalIndex}
                 className={`projects-reel__item ${itemClass}`}
               >
-                <ProjectCard project={item.project} />
+                <ProjectCard
+                  project={item.project}
+                  playPreview={enableVideoPreviews && item.loopIndex === activeLoopIndex}
+                />
               </div>
             );
           })}
