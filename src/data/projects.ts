@@ -76,6 +76,20 @@ export const projects: Project[] = [
     highlight: "Richieste personalizzate centralizzate in un flusso unico.",
   },
   {
+    id: "project-loris-impianti",
+    title: "Loris Impianti",
+    category: "Artigianato",
+    cover: withBase("logos/lorisimpianti.png"),
+    previewPoster: withBase("image/lorisimpianti.png"),
+    coverAlt: "Brand Loris Impianti",
+    description:
+      "Sito orientato alla conversione per servizi idraulici, con call to action chiare e Google Ads per generare contatti locali.",
+    tags: ["Sito vetrina", "Servizi tecnici", "Lead generation locale"],
+    url: "https://lorisimpianti.it",
+    caseStudyHref: "#case-study-loris-impianti",
+    highlight: "Presentazione servizi e contatti rapidi orientati alle richieste locali.",
+  },
+  {
     id: "project-pizzaparty",
     title: "Pizza Party VR",
     category: "Ristorazione",
