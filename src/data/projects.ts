@@ -124,8 +124,8 @@ export const projects: Project[] = [
     title: "Simone Edilizia",
     category: "Artigianato",
     cover: withBase("logos/simoneedilizia.png"),
-    previewVideo: withBase("video/vaulted.mp4"),
-    previewPoster: withBase("image/vaulted.png"),
+    previewVideo: withBase("video/simoneedilizia.mp4"),
+    previewPoster: withBase("image/simoneedilizia.png"),
     coverAlt: "Brand Vaulted",
     description:
       "Vetrina streetwear con lookbook e percorso diretto verso l'acquisto.",
