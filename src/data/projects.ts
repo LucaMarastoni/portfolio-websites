@@ -119,6 +119,22 @@ export const projects: Project[] = [
     caseStudyHref: "#case-study-vaulted",
     highlight: "Lookbook editoriale con percorso diretto verso l'acquisto.",
   },
+    {
+    id: "project-simoneedilizia",
+    title: "Simone Edilizia",
+    category: "Artigianato",
+    cover: withBase("logos/simoneedilizia.png"),
+    previewVideo: withBase("video/vaulted.mp4"),
+    previewPoster: withBase("image/vaulted.png"),
+    coverAlt: "Brand Vaulted",
+    description:
+      "Vetrina streetwear con lookbook e percorso diretto verso l'acquisto.",
+    tags: ["Lookbook editoriale", "Calendario drop", "Lead wholesale"],
+    url: "https://simoneedilizia.it",
+    caseStudyHref: "#case-study-simone-edilizia",
+    highlight: "Presentazione servizi e contatti rapidi orientati alle richieste dei clienti.",
+  },
+
   {
     id: "project-terra-sushi",
     title: "Terra Sushi",
