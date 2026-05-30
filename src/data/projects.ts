@@ -128,7 +128,7 @@ export const projects: Project[] = [
     previewPoster: withBase("image/simoneedilizia.png"),
     coverAlt: "Brand Vaulted",
     description:
-      "Vetrina streetwear con lookbook e percorso diretto verso l'acquisto.",
+      "Presentazione servizi e contatti rapidi orientati alle richieste dei clienti.",
     tags: ["Lookbook editoriale", "Calendario drop", "Lead wholesale"],
     url: "https://simoneedilizia.it",
     caseStudyHref: "#case-study-simone-edilizia",
