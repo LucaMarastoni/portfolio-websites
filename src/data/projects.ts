@@ -30,6 +30,21 @@ const withBase = (path: string): string => {
 };
 
 export const projects: Project[] = [
+    {
+    id: "project-tavernetta",
+    title: "Tavernetta",
+    category: "Ristorazione",
+    cover: withBase("logos/tavernetta_logo.png"),
+    previewVideo: withBase("video/tavernetta.mp4"),
+    previewPoster: withBase("image/tavernetta.png"),
+    coverAlt: "Brand Tavernetta",
+    description:
+      "Sito per ristoante con menu digitale, prenotazioni integrate.",
+    tags: ["Brand identity", "Menu digitale", "Prenotazioni"],
+    url: "https://www.tavernettavr.it",
+    caseStudyHref: "#case-study-tavernetta",
+    highlight: "Prenotazioni integrate e menù digitale.",
+  },
   {
     id: "project-albatros",
     title: "Albatros Tropea Noleggio",
