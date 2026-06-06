@@ -94,7 +94,7 @@ export const projects: Project[] = [
     id: "project-loris-impianti",
     title: "Loris Impianti",
     category: "Artigianato",
-    cover: withBase("logos/lorisimpianti.png"),
+    cover: withBase("logos/lorisimpianti_logo.png"),
     previewPoster: withBase("image/lorisimpianti.png"),
     coverAlt: "Brand Loris Impianti",
     description:
@@ -138,7 +138,7 @@ export const projects: Project[] = [
     id: "project-simoneedilizia",
     title: "Simone Edilizia",
     category: "Artigianato",
-    cover: withBase("logos/simoneedilizia.png"),
+    cover: withBase("logos/simoneedilizia_logo.png"),
     previewVideo: withBase("video/simoneedilizia.mp4"),
     previewPoster: withBase("image/simoneedilizia.png"),
     coverAlt: "Brand Vaulted",
