@@ -39,7 +39,7 @@ export const projects: Project[] = [
     previewPoster: withBase("image/tavernetta.png"),
     coverAlt: "Brand Tavernetta",
     description:
-      "Sito per ristoante con menu digitale, prenotazioni integrate.",
+      "Sito per ristorante con menu digitale, prenotazioni integrate.",
     tags: ["Brand identity", "Menu digitale", "Prenotazioni"],
     url: "https://www.tavernettavr.it",
     caseStudyHref: "#case-study-tavernetta",
