@@ -15,7 +15,6 @@ const menuItems = [
 const socialItems = [
   { label: "LinkedIn", link: "https://www.linkedin.com/in/luca-marastoni-387329304/" },
   { label: "Instagram", link: "https://www.instagram.com/marastoni.luca/" },
-  { label: "GitHub", link: "https://github.com/lucamarastoni" },
 ];
 
 export default function App() {
