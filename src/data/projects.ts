@@ -61,21 +61,6 @@ export const projects: Project[] = [
     highlight: "Booking online integrato con gestione richieste semplificata.",
   },
   {
-    id: "project-37100",
-    title: "37100 Club",
-    category: "Community",
-    cover: withBase("logos/37100club_logo.jpeg"),
-    previewVideo: withBase("video/37100club.mp4"),
-    previewPoster: withBase("image/37100club.png"),
-    coverAlt: "Brand 37100 Club",
-    description:
-      "Hub community con eventi, ticketing e marketplace dell'usato in un flusso unico.",
-    tags: ["Gestione eventi", "Marketplace circolare", "Meccaniche di gioco"],
-    url: "https://37100club.it",
-    caseStudyHref: "#case-study-37100-club",
-    highlight: "Calendario eventi e ticketing in un unico hub community.",
-  },
-  {
     id: "project-martylab",
     title: "Martylab",
     category: "Artigianato",
