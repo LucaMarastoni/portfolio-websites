@@ -105,6 +105,20 @@ export const projects: Project[] = [
     highlight: "Presentazione servizi e contatti rapidi orientati alle richieste locali.",
   },
   {
+    id: "project-gc-finiture-edili",
+    title: "GC Finiture Edili",
+    category: "Artigianato",
+    cover: withBase("logos/gcfinitureedili_logo.png"),
+    previewPoster: withBase("image/gcfinitureedili.png"),
+    coverAlt: "Anteprima sito GC Finiture Edili",
+    description:
+      "Sito vetrina per impresa edile specializzata in cartongesso, pitture e isolamento termico, con servizi chiari e contatti rapidi.",
+    tags: ["Sito vetrina", "Servizi edili", "Lead generation locale"],
+    url: "https://gcfinitureedili.it",
+    caseStudyHref: "#case-study-gc-finiture-edili",
+    highlight: "Servizi edili e contatti rapidi orientati alle richieste locali.",
+  },
+  {
     id: "project-pizzaparty",
     title: "Pizza Party VR",
     category: "Ristorazione",
