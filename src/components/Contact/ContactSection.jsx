@@ -15,25 +15,25 @@ export default function ContactSection() {
 
   return (
     <section className="contact-showcase" aria-label="Sezione contatti">
-      <div className="contact-showcase__panel">
-        <div className="contact-showcase__content">
-          <p className="contact-showcase__eyebrow">Contatti</p>
-          <h2>Parliamo del tuo progetto.</h2>
-          <p>Scrivici via email o WhatsApp e ti rispondiamo con una direzione chiara.</p>
+      <div className="contact-showcase__content">
+        <h2>Parliamo del tuo progetto.</h2>
 
-          <div className="contact-showcase__actions">
-            <a className="contact-showcase__btn contact-showcase__btn--primary" href={mailtoHref}>
-              {EMAIL}
-            </a>
-            <a
-              className="contact-showcase__btn contact-showcase__btn--ghost"
-              href={WHATSAPP_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              WhatsApp
-            </a>
-          </div>
+        <div className="contact-showcase__actions">
+          <a
+            className="contact-showcase__btn contact-showcase__btn--primary"
+            href={mailtoHref}
+            aria-label={`Scrivi una mail a ${EMAIL}`}
+          >
+            Mail
+          </a>
+          <a
+            className="contact-showcase__btn contact-showcase__btn--ghost"
+            href={WHATSAPP_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp
+          </a>
         </div>
       </div>
     </section>
