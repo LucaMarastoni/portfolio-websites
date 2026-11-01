@@ -1,12 +1,31 @@
 .liquid-glass-button {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  height: 3.5rem;
+  padding: 0 2.5rem;
   isolation: isolate;
   border: 0;
   border-radius: 999px;
   background: transparent;
+  color: #fff;
+  cursor: pointer;
   font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  gap: 0.5rem;
   text-decoration: none;
+  white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
   transition: transform 300ms ease, color 300ms ease, box-shadow 300ms ease;
+}
+
+.liquid-glass-button:disabled {
+  cursor: default;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 .liquid-glass-refraction,
