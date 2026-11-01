@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { ShaderGradientBackground } from "./components/Background/ShaderGradientBackground";
 import { LegacyScriptsLoader } from "./components/LegacyScriptsLoader";
 import StaggeredMenu from "./components/Menu/StaggeredMenu";
+import SiteIntro from "./components/SiteIntro/SiteIntro";
 import Home from "./pages/Home";
 
 const menuItems = [
@@ -19,6 +20,7 @@ const socialItems = [
 export default function App() {
   return (
     <>
+      <SiteIntro />
       <ShaderGradientBackground />
       <div className="vignette-bg" aria-hidden="true" />
       <StaggeredMenu
