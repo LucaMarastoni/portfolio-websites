@@ -1,0 +1,21 @@
+/* Keep the existing site's reset; utilities are needed only by the UI components. */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities) source(none);
+@source "../components/ui";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: #090909;
+  --color-primary: #ffffff;
+  --color-primary-foreground: #050505;
+  --color-secondary: #262626;
+  --color-secondary-foreground: #ffffff;
+  --color-accent: #333333;
+  --color-accent-foreground: #ffffff;
+  --color-muted: #737373;
+  --color-destructive: #dc2626;
+  --color-input: #525252;
+  --color-ring: #ffffff;
+}

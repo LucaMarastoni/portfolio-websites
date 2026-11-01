@@ -5,7 +5,9 @@ import ContactSection from "../components/Contact/ContactSection";
 import ProcessCascade from "../components/ProcessCascade/ProcessCascade";
 import { ProjectsSection } from "../components/Projects/ProjectsSection";
 import RotatingText from "../components/TextType/RotatingText";
-import ScrollReveal from "../components/ScrollReveal/ScrollReveal";
+import TextType from "../components/TextType";
+import ServicesFolder from "../components/ServicesFolder/ServicesFolder";
+import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import homeBodyRaw from "../content/home-body.html?raw";
 import { withBaseAssetPaths } from "../utils/legacyHtml";
 
@@ -48,6 +50,8 @@ export default function Home() {
   const [processCascadeMount, setProcessCascadeMount] = useState(null);
   const [projectsSectionMount, setProjectsSectionMount] = useState(null);
   const [contactSectionMount, setContactSectionMount] = useState(null);
+  const [projectsButtonMount, setProjectsButtonMount] = useState(null);
+  const [servicesFolderMount, setServicesFolderMount] = useState(null);
 
   const html = useMemo(() => homeBody, []);
 
@@ -74,11 +78,21 @@ export default function Home() {
     setProcessCascadeMount(document.getElementById("process-scroll-triggered-root"));
     setProjectsSectionMount(document.getElementById("projects-section-root"));
     setContactSectionMount(document.getElementById("contact-section-root"));
+    setProjectsButtonMount(document.getElementById("hero-projects-button-root"));
+    setServicesFolderMount(document.getElementById("services-folder-root"));
   }, [html, location.pathname]);
 
   return (
     <>
       <div dangerouslySetInnerHTML={{ __html: html }} />
+      {projectsButtonMount
+        ? createPortal(
+            <LiquidButton asChild className="hero-projects-button">
+              <a href="#/?section=progetti">Scopri i progetti</a>
+            </LiquidButton>,
+            projectsButtonMount,
+          )
+        : null}
       {titleTextMount
         ? createPortal(
             <RotatingText
@@ -97,22 +111,26 @@ export default function Home() {
             titleTextMount,
           )
         : null}
+      {servicesFolderMount
+        ? createPortal(<ServicesFolder />, servicesFolderMount)
+        : null}
       {subtitleRevealMount
         ? createPortal(
-            <ScrollReveal
-              containerClassName="hero-scroll-reveal"
-              textClassName="hero-scroll-reveal-text"
-              baseOpacity={0.15}
-              enableBlur
-              baseRotation={2}
-              blurStrength={3}
-              rotationStart="top 72%"
-              rotationEnd="top 38%"
-              wordAnimationStart="top 72%"
-              wordAnimationEnd="top 38%"
-            >
-              Costruiamo sistemi digitali, siti e CRM su misura, insieme a campagne Google Ads orientate ai contatti qualificati, per trasformare traffico e processi in risultati concreti, misurabili e sostenibili nel tempo.
-            </ScrollReveal>,
+            <TextType
+              as="p"
+              className="hero-texttype-copy"
+              text={["Non ci limitiamo a portare i brand online. Creiamo esperienze digitali e strategie su misura che trasformano le idee in opportunità concrete di crescita."]}
+              typingSpeed={18}
+              initialDelay={250}
+              loop={false}
+              typeEffect="none"
+              showCursor
+              cursorStyle="bar"
+              cursorGlide
+              cursorColor="rgba(255, 255, 255, 0.78)"
+              cursorBlinkDuration={0.55}
+              startOnVisible
+            />,
             subtitleRevealMount,
           )
         : null}

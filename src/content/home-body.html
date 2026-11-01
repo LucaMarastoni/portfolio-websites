@@ -40,7 +40,7 @@
             <!-- Hero CTA -->
             <div class="hero-cta">
               <a class="btn primary" href="#contact" aria-label="Vai alla sezione contatti">Iniziamo oggi</a>
-              <a class="btn outline btn-glass" href="#progetti">Scopri i progetti</a>
+              <span id="hero-projects-button-root" class="hero-projects-button-slot dark"></span>
             </div>
             <button class="scroll-indicator" type="button" aria-label="Scorri verso il basso" data-scroll-target="#services">
               <span class="scroll-indicator-mouse" aria-hidden="true">
@@ -54,60 +54,7 @@
 
         <!-- Nuova sezione: Servizi -->
         <section id="services" class="section section-alt services-section">
-          <div class="section-heading reveal">
-            <p class="eyebrow">Servizi</p>
-            <h2 class="headline-animated">Cosa possiamo costruire per te</h2>
-            <p class="services-intro">Soluzioni su misura per prodotto digitale, operatività interna e acquisizione clienti.</p>
-          </div>
-          <div class="services-grid services-grid--simple">
-            <article class="service-simple-card reveal">
-              <div class="service-simple-details">
-                <p class="service-simple-title">Siti e landing orientati al contatto</p>
-                <p class="service-simple-lead">Sviluppo pagine chiare e orientate alla conversione.</p>
-                <ul class="service-simple-points" aria-label="Dettagli servizio siti e landing">
-                  <li><strong>Performance e SEO tecnica:</strong> base solida per visibilita e caricamenti rapidi.</li>
-                  <li><strong>Struttura persuasiva:</strong> sezioni progettate per guidare la richiesta di contatto.</li>
-                  <li><strong>Tracking eventi:</strong> dati puliti per capire cosa converte davvero.</li>
-                </ul>
-              </div>
-              <a class="service-simple-button" href="#project-albatros" aria-label="Vedi case study siti e landing">Apri caso</a>
-            </article>
-
-            <article class="service-simple-card service-simple-card--ads reveal">
-              <div class="service-simple-details">
-                <div class="google-badge" aria-label="Google Ads Certified" role="img">
-                  <img
-                    src="./image/google-search-certified.png"
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <p class="service-simple-title">Google Ads con focus sui lead utili</p>
-                <p class="service-simple-lead">Impostiamo campagne Search e Local con obiettivi chiari.</p>
-                <ul class="service-simple-points" aria-label="Dettagli servizio Google Ads">
-                  <li><strong>Keyword e annunci:</strong> targeting allineato al servizio e alle intenzioni reali.</li>
-                  <li><strong>Misurazione affidabile:</strong> conversioni tracciate e report leggibili.</li>
-                  <li><strong>Ottimizzazione continua:</strong> budget gestito su cio che porta lead pertinenti.</li>
-                </ul>
-              </div>
-              <a class="service-simple-button" href="#project-pizzaparty" aria-label="Vedi case study Google Ads">Apri caso</a>
-            </article>
-
-            <article class="service-simple-card reveal">
-              <div class="service-simple-details">
-                <p class="service-simple-title">CRM su misura per processi reali</p>
-                <p class="service-simple-lead">Creiamo CRM custom su misura del tuo flusso operativo.</p>
-                <ul class="service-simple-points" aria-label="Dettagli servizio CRM">
-                  <li><strong>Pipeline e task:</strong> gestione commerciale in un unico pannello.</li>
-                  <li><strong>Automazioni utili:</strong> meno lavoro manuale e follow-up piu coerenti.</li>
-                  <li><strong>Dashboard operative:</strong> controllo rapido di stato, priorita e prossime azioni.</li>
-                </ul>
-              </div>
-              <a class="service-simple-button" href="#project-piuma" aria-label="Vedi case study CRM">Apri caso</a>
-            </article>
-          </div>
+          <div id="services-folder-root" class="services-folder-slot"></div>
         </section>
 
         <!-- Sezione Metodo aggiornata -->
