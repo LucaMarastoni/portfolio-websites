@@ -2,10 +2,9 @@ import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
 import ContactSection from "../components/Contact/ContactSection";
-import ProcessCascade from "../components/ProcessCascade/ProcessCascade";
 import { ProjectsSection } from "../components/Projects/ProjectsSection";
 import RotatingText from "../components/TextType/RotatingText";
-import TextType from "../components/TextType";
+import VerticalCutReveal from "@/components/fancy/text/vertical-cut-reveal";
 import ServicesFolder from "../components/ServicesFolder/ServicesFolder";
 import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import homeBodyRaw from "../content/home-body.html?raw";
@@ -47,7 +46,6 @@ export default function Home() {
   const location = useLocation();
   const [titleTextMount, setTitleTextMount] = useState(null);
   const [subtitleRevealMount, setSubtitleRevealMount] = useState(null);
-  const [processCascadeMount, setProcessCascadeMount] = useState(null);
   const [projectsSectionMount, setProjectsSectionMount] = useState(null);
   const [contactSectionMount, setContactSectionMount] = useState(null);
   const [projectsButtonMount, setProjectsButtonMount] = useState(null);
@@ -75,7 +73,6 @@ export default function Home() {
   useEffect(() => {
     setTitleTextMount(document.getElementById("hero-texttype-root"));
     setSubtitleRevealMount(document.getElementById("hero-scroll-reveal-root"));
-    setProcessCascadeMount(document.getElementById("process-scroll-triggered-root"));
     setProjectsSectionMount(document.getElementById("projects-section-root"));
     setContactSectionMount(document.getElementById("contact-section-root"));
     setProjectsButtonMount(document.getElementById("hero-projects-button-root"));
@@ -116,26 +113,23 @@ export default function Home() {
         : null}
       {subtitleRevealMount
         ? createPortal(
-            <TextType
-              as="p"
-              className="hero-texttype-copy"
-              text={["Non ci limitiamo a portare i brand online. Creiamo esperienze digitali e strategie su misura che trasformano le idee in opportunità concrete di crescita."]}
-              typingSpeed={18}
-              initialDelay={250}
-              loop={false}
-              typeEffect="none"
-              showCursor
-              cursorStyle="bar"
-              cursorGlide
-              cursorColor="rgba(255, 255, 255, 0.78)"
-              cursorBlinkDuration={0.55}
-              startOnVisible
-            />,
+            <VerticalCutReveal
+              splitBy="characters"
+              staggerDuration={0.018}
+              staggerFrom="first"
+              transition={{
+                type: "spring",
+                stiffness: 200,
+                damping: 21,
+              }}
+              containerClassName="hero-vertical-reveal-copy"
+              highlightedWords={["esperienze", "digitali", "crescere", "brand"]}
+              highlightedWordClassName="hero-vertical-reveal-accent"
+            >
+              Trasformiamo idee in esperienze digitali che fanno crescere il tuo brand.
+            </VerticalCutReveal>,
             subtitleRevealMount,
           )
-        : null}
-      {processCascadeMount
-        ? createPortal(<ProcessCascade />, processCascadeMount)
         : null}
       {projectsSectionMount
         ? createPortal(<ProjectsSection />, projectsSectionMount)

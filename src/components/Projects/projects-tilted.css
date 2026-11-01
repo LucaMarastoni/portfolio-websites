@@ -1,0 +1,67 @@
+.projects-swap {
+  width: 100%;
+  margin: 0 auto;
+  padding: clamp(5rem, 9vw, 8rem) 0;
+  overflow: hidden;
+}
+
+.projects-tilted__hero {
+  height: clamp(560px, 52vw, 700px);
+  background: transparent;
+}
+
+.projects-swap__intro {
+  position: relative;
+  z-index: 3;
+}
+
+.projects-tilted__intro {
+  padding: clamp(1.5rem, 3.5vw, 2.75rem) clamp(2rem, 5vw, 4rem);
+  text-align: center;
+  pointer-events: none;
+}
+
+.projects-swap__eyebrow {
+  margin: 0 0 0.7rem;
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.projects-swap h2 {
+  max-width: 950px;
+  margin: 0 auto;
+  color: #fff;
+  font-size: clamp(2.5rem, 5.2vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+@media (max-width: 680px) {
+  .projects-swap {
+    padding: 4.5rem 0 5rem;
+  }
+
+  .projects-tilted__hero {
+    height: 540px;
+  }
+
+  .projects-tilted__intro {
+    padding: 1rem 1.25rem 1.5rem;
+  }
+
+  .projects-swap__eyebrow {
+    margin-bottom: 0.55rem;
+    font-size: 0.66rem;
+  }
+
+  .projects-swap h2 {
+    max-width: 330px;
+    font-size: clamp(2.2rem, 10.5vw, 3rem);
+    line-height: 1.02;
+  }
+
+}

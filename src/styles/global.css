@@ -562,16 +562,23 @@ body.light #stars-bg {
   text-align: center;
 }
 
-.hero-texttype-copy {
+.hero-vertical-reveal-copy {
   display: block;
   width: 100%;
   margin: 0;
-  color: rgba(232, 236, 245, 0.9);
+  color: #fff;
   font-size: clamp(1.45rem, 3.6vw, 2.35rem);
   font-weight: 500;
   line-height: 1.42;
   text-align: center;
   text-wrap: pretty;
+}
+
+.hero-vertical-reveal-accent {
+  font-family: "Unbounded", "Poppins", sans-serif;
+  font-size: 0.86em;
+  font-weight: 700;
+  letter-spacing: -0.055em;
 }
 
 .hero-tagline {
@@ -3495,7 +3502,7 @@ body.modal-open {
   }
 
   .hero-scroll-reveal-text,
-  .hero-texttype-copy {
+  .hero-vertical-reveal-copy {
     font-size: 1.4rem;
   }
 
@@ -3872,7 +3879,7 @@ body.modal-open {
   }
 
   .hero-scroll-reveal-text,
-  .hero-texttype-copy {
+  .hero-vertical-reveal-copy {
     font-size: 1.28rem;
   }
 

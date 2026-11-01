@@ -1,0 +1,39 @@
+.tilted-grid-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.tilted-grid-hero__band {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity 500ms ease;
+}
+
+.tilted-grid-hero__tile,
+.tilted-grid-hero__slice,
+.tilted-grid-hero__image {
+  position: absolute;
+  top: 0;
+}
+
+.tilted-grid-hero__slice {
+  overflow: hidden;
+  background: #171717;
+  backface-visibility: hidden;
+}
+
+.tilted-grid-hero__slice.is-first {
+  border-radius: 0.65rem 0 0 0.65rem;
+}
+
+.tilted-grid-hero__slice.is-last {
+  border-radius: 0 0.65rem 0.65rem 0;
+}
+
+.tilted-grid-hero__image {
+  max-width: none;
+  object-fit: cover;
+  user-select: none;
+}

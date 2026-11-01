@@ -7,7 +7,6 @@ import Home from "./pages/Home";
 const menuItems = [
   { label: "Home", ariaLabel: "Vai alla home", link: "#/" },
   { label: "Servizi", ariaLabel: "Vai alla sezione servizi", link: "#/?section=services" },
-  { label: "Metodo", ariaLabel: "Vai alla sezione metodo", link: "#/?section=process" },
   { label: "Progetti", ariaLabel: "Vai alla sezione progetti", link: "#/?section=progetti" },
   { label: "Contatti", ariaLabel: "Vai alla sezione contatti", link: "#/?section=contact" },
 ];
