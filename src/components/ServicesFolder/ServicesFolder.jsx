@@ -5,21 +5,48 @@ import "./services-folder.css";
 const services = [
   {
     title: "Siti e landing orientati al contatto",
-    lead: "Pagine veloci, chiare e progettate per convertire.",
-    points: ["Performance e SEO tecnica", "Struttura persuasiva", "Tracking eventi"],
+    lead: "Esperienze veloci e credibili, costruite attorno a una sola azione: trasformare visite in richieste.",
+    points: [
+      "Architettura e copy persuasivi",
+      "Design responsive su misura",
+      "Performance, SEO e accessibilità",
+      "Moduli, WhatsApp e prenotazioni",
+      "Analytics e tracking degli eventi",
+    ],
+    result: "Una presenza digitale chiara, veloce e pronta a generare contatti.",
+    ideal: "Brand, professionisti e attività locali.",
+    cta: "Vedi progetto",
     href: "#/?section=project-albatros",
   },
   {
     title: "Google Ads con focus sui lead utili",
-    lead: "Campagne Search e Local con obiettivi misurabili.",
-    points: ["Keyword e annunci", "Misurazione affidabile", "Ottimizzazione continua"],
+    lead: "Campagne Search e Local pensate per intercettare domanda reale e produrre contatti tracciabili.",
+    points: [
+      "Analisi di domanda e competitor",
+      "Keyword, annunci e asset dedicati",
+      "Landing e tracciamento conversioni",
+      "Ottimizzazione di budget e ricerche",
+      "Report leggibili e azioni successive",
+    ],
+    result: "Meno traffico dispersivo, più richieste con un costo sostenibile.",
+    ideal: "Attività locali, servizi e lead generation B2B.",
+    cta: "Vedi campagna",
     href: "#/?section=project-pizzaparty",
     badge: true,
   },
   {
     title: "CRM su misura per processi reali",
-    lead: "Flussi operativi costruiti intorno al tuo lavoro.",
-    points: ["Pipeline e task", "Automazioni utili", "Dashboard operative"],
+    lead: "Strumenti operativi disegnati sui tuoi flussi, senza funzioni inutili o processi imposti.",
+    points: [
+      "Mappatura del processo e priorità",
+      "Pipeline, anagrafiche e task",
+      "Automazioni, alert e follow-up",
+      "Ruoli, permessi e dashboard",
+      "Integrazioni con strumenti esistenti",
+    ],
+    result: "Meno passaggi manuali, dati ordinati e attività sempre sotto controllo.",
+    ideal: "Team che gestiscono clienti, ordini o commesse.",
+    cta: "Scopri il CRM",
     href: "#/?section=project-piuma",
   },
 ];
@@ -75,8 +102,12 @@ export default function ServicesFolder() {
             <ul>
               {service.points.map((point) => <li key={point}>{point}</li>)}
             </ul>
+            <div className="services-folder-card__details">
+              <p><strong>Risultato</strong>{service.result}</p>
+              <p><strong>Ideale per</strong>{service.ideal}</p>
+            </div>
             <a href={service.href} onClick={(event) => event.stopPropagation()}>
-              Apri caso <span aria-hidden="true">↗</span>
+              {service.cta} <span aria-hidden="true">↗</span>
             </a>
           </article>
         ),

@@ -105,6 +105,30 @@
   content: "";
 }
 
+.services-folder-card__details {
+  display: grid;
+  gap: 7px;
+  margin-top: 11px;
+  padding: 9px 0 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.services-folder-card__details p {
+  margin: 0;
+  color: #444;
+  font-size: 7.8px;
+  line-height: 1.35;
+}
+
+.services-folder-card__details strong {
+  display: block;
+  margin-bottom: 2px;
+  color: #111;
+  font-size: 7px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
 .services-folder-card a {
   display: inline-flex;
   align-items: center;
@@ -201,6 +225,22 @@
     padding-top: 4px;
     font-size: 6.5px;
     line-height: 1;
+  }
+
+  .services-folder-card__details {
+    gap: 3px;
+    margin-top: 4px;
+    padding-top: 4px;
+  }
+
+  .services-folder-card__details p {
+    font-size: 5.4px;
+    line-height: 1.15;
+  }
+
+  .services-folder-card__details strong {
+    margin-bottom: 1px;
+    font-size: 5px;
   }
 
   .services-folder-card__badge {
